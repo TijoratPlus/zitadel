@@ -1,6 +1,7 @@
 import { LANGS, LANGUAGE_COOKIE_NAME, LANGUAGE_HEADER_NAME } from "@/lib/i18n";
 import { getServiceConfig } from "@/lib/service-url";
 import { getAllowedLanguages, getHostedLoginTranslation } from "@/lib/zitadel";
+import { getTijoratMessages } from "@/tijorat/locales"; // TIJORAT
 import { JsonObject } from "@zitadel/client";
 import deepmerge from "deepmerge";
 import { getRequestConfig } from "next-intl/server";
@@ -82,9 +83,11 @@ export default getRequestConfig(async () => {
   }
 
   const fallbackMessages = (await import(`../../locales/${fallback}.json`)).default;
+  // TIJORAT: Tijorat+ copy, applied last but never over texts an admin customised via the API
+  const tijoratMessages = getTijoratMessages(locale, deepmerge(fallbackMessages, localeMessages), customMessages);
 
   return {
     locale,
-    messages: deepmerge.all([fallbackMessages, localeMessages, customMessages]) as Record<string, string>,
+    messages: deepmerge.all([fallbackMessages, localeMessages, customMessages, tijoratMessages]) as Record<string, string>,
   };
 });

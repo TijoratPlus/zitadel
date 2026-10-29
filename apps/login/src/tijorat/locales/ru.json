@@ -1,0 +1,56 @@
+{
+  "common": {
+    "title": "Вход в Tijorat+"
+  },
+  "loginname": {
+    "title": "Вход в Tijorat+",
+    "description": "Один аккаунт для кассы, учёта и всех сервисов Tijorat+.",
+    "register": "Создать аккаунт",
+    "submit": "Продолжить",
+    "labels": {
+      "loginname": "Email или логин",
+      "usernameOrPhoneNumber": "Логин или номер телефона",
+      "usernameOrEmail": "Email или логин"
+    }
+  },
+  "password": {
+    "verify": {
+      "title": "Введите пароль",
+      "description": "Пароль от вашего аккаунта Tijorat+.",
+      "resetPassword": "Забыли пароль?"
+    }
+  },
+  "register": {
+    "title": "Создать аккаунт",
+    "description": "Один аккаунт для всех сервисов Tijorat+.",
+    "password": {
+      "title": "Придумайте пароль",
+      "description": "Пароль понадобится для входа в Tijorat+."
+    },
+    "methods": {
+      "passkey": "Отпечаток или Face ID"
+    }
+  },
+  "signedin": {
+    "description": "Вы вошли в Tijorat+."
+  },
+  "device": {
+    "request": {
+      "disclaimer": "Нажимая «Разрешить», вы разрешаете {appName} и Tijorat+ использовать ваши данные в соответствии с их условиями использования и политиками конфиденциальности. Доступ можно отозвать в любое время."
+    }
+  },
+  "tijorat": {
+    "brand": {
+      "tagline": "Касса и учёт для вашего бизнеса",
+      "subtitle": "Один аккаунт для всех сервисов Tijorat+"
+    },
+    "passkeyOffer": {
+      "title": "Входите быстрее",
+      "description": "Включите вход по отпечатку пальца, Face ID или PIN-коду этого устройства. Это быстрее и надёжнее пароля.",
+      "enable": "Включить",
+      "later": "Не сейчас",
+      "checking": "Проверяем устройство…",
+      "failed": "Не удалось включить вход по отпечатку. Можно попробовать позже в настройках аккаунта."
+    }
+  }
+}
