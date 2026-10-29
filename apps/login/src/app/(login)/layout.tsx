@@ -9,6 +9,8 @@ import ThemeSwitch from "@/components/theme-switch";
 import { LANGS, getLanguage } from "@/lib/i18n";
 import { getServiceConfig } from "@/lib/service-url";
 import { getAllowedLanguages } from "@/lib/zitadel";
+import { tijoratFontClass } from "@/tijorat/brand/font"; // TIJORAT
+import { tijoratMetadata } from "@/tijorat/brand/metadata"; // TIJORAT
 import * as Tooltip from "@radix-ui/react-tooltip";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
@@ -23,7 +25,7 @@ const lato = Lato({
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("common");
-  return { title: t("title") };
+  return { title: t("title"), ...tijoratMetadata() }; // TIJORAT: favicon
 }
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
@@ -43,7 +45,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   }
 
   return (
-    <html className={`${lato.className}`} suppressHydrationWarning>
+    <html className={tijoratFontClass(lato.className)} suppressHydrationWarning>
       <head />
       <body>
         <ThemeProvider>

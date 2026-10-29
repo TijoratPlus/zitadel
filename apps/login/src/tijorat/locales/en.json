@@ -1,0 +1,51 @@
+{
+  "common": {
+    "title": "Sign in to Tijorat+"
+  },
+  "loginname": {
+    "title": "Sign in to Tijorat+",
+    "description": "One account for the till, bookkeeping and every Tijorat+ service.",
+    "register": "Create account",
+    "labels": {
+      "loginname": "Email or username",
+      "usernameOrEmail": "Email or username"
+    }
+  },
+  "password": {
+    "verify": {
+      "title": "Enter your password",
+      "description": "The password of your Tijorat+ account.",
+      "resetPassword": "Forgot password?"
+    }
+  },
+  "register": {
+    "title": "Create account",
+    "description": "One account for every Tijorat+ service.",
+    "password": {
+      "title": "Choose a password",
+      "description": "You will use it to sign in to Tijorat+."
+    }
+  },
+  "signedin": {
+    "description": "You are signed in to Tijorat+."
+  },
+  "device": {
+    "request": {
+      "disclaimer": "By clicking Allow, you allow {appName} and Tijorat+ to use your information in accordance with their respective terms of service and privacy policies. You can revoke this access at any time."
+    }
+  },
+  "tijorat": {
+    "brand": {
+      "tagline": "Till and bookkeeping for your business",
+      "subtitle": "One account for every Tijorat+ service"
+    },
+    "passkeyOffer": {
+      "title": "Sign in faster",
+      "description": "Use your fingerprint, Face ID or this device's PIN to sign in. It is faster and safer than a password.",
+      "enable": "Turn on",
+      "later": "Not now",
+      "checking": "Checking your device…",
+      "failed": "Could not turn on passkey sign-in. You can try again later in your account settings."
+    }
+  }
+}

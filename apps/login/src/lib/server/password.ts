@@ -16,6 +16,7 @@ import {
   setPassword,
   setUserPassword,
 } from "@/lib/zitadel";
+import { getPasskeyOfferRedirect } from "@/tijorat/passkey/offer"; // TIJORAT
 import { Code, create, Duration } from "@zitadel/client";
 import { Checks, ChecksSchema } from "@zitadel/proto/zitadel/session/v2/session_service_pb";
 import { LoginSettings } from "@zitadel/proto/zitadel/settings/v2/login_settings_pb";
@@ -405,6 +406,18 @@ export async function sendPassword(
 
   if (mfaFactorCheck?.redirect) {
     return mfaFactorCheck;
+  }
+
+  // TIJORAT: offer passkey enrollment once the password login is complete, see src/tijorat/passkey
+  const passkeyOffer = await getPasskeyOfferRedirect({
+    session,
+    loginSettings: loginSettingsByUser,
+    authMethods,
+    organization: command.organization,
+    requestId: command.requestId,
+  });
+  if (passkeyOffer) {
+    return passkeyOffer;
   }
 
   let result: Awaited<ReturnType<typeof completeFlowOrGetUrl>>;

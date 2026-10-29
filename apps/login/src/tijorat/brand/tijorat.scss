@@ -1,0 +1,25 @@
+// Tijorat+ layout styles. Every rule is scoped to classes rendered only by TijoratTheme,
+// so importing this file has no effect on the upstream layout.
+
+$tj-green: #1d9f6e;
+$tj-forest: #0c1e16;
+$tj-mint: #a8deca;
+
+.tj-brand-panel {
+  background:
+    radial-gradient(120% 80% at 0% 100%, rgba($tj-green, 0.38), transparent 60%),
+    radial-gradient(80% 60% at 100% 0%, rgba($tj-mint, 0.12), transparent 60%), $tj-forest;
+}
+
+.tj-auth-title h1 {
+  text-align: inherit;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.tj-auth :focus-visible {
+  outline: 2px solid rgba($tj-green, 0.55);
+  outline-offset: 2px;
+}

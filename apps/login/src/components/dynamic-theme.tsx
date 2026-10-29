@@ -2,6 +2,8 @@
 
 import { Logo } from "@/components/logo";
 import { useResponsiveLayout } from "@/lib/theme-hooks";
+import { TijoratTheme } from "@/tijorat/brand/tijorat-theme"; // TIJORAT
+import { isTijoratBrand } from "@/tijorat/config"; // TIJORAT
 import { BrandingSettings } from "@zitadel/proto/zitadel/settings/v2/branding_settings_pb";
 import React, { Children, ReactNode } from "react";
 import { Card } from "./card";
@@ -35,6 +37,15 @@ export function DynamicTheme({
     }
     return children;
   }, [children, isSideBySide]);
+
+  // TIJORAT: branded layout, see src/tijorat/brand/tijorat-theme.tsx
+  if (isTijoratBrand()) {
+    return (
+      <TijoratTheme branding={branding} isSideBySide={isSideBySide}>
+        {actualChildren}
+      </TijoratTheme>
+    );
+  }
 
   return (
     <ThemeWrapper branding={branding}>

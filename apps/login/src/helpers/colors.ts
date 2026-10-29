@@ -1,3 +1,4 @@
+import { withTijoratColors } from "@/tijorat/brand/colors"; // TIJORAT
 import { BrandingSettings } from "@zitadel/proto/zitadel/settings/v2/branding_settings_pb";
 import tinycolor from "tinycolor2";
 
@@ -56,6 +57,7 @@ type BrandingColors = {
 };
 
 export function setTheme(document: any, policy?: BrandingSettings) {
+  policy = withTijoratColors(policy); // TIJORAT: Tijorat+ palette instead of stock ZITADEL colours
   const lP: BrandingColors = {
     lightTheme: {
       backgroundColor: policy?.lightTheme?.backgroundColor || BACKGROUND,
