@@ -70,6 +70,7 @@ describe("DynamicTheme hook", () => {
   });
 
   test("renders the upstream layout when the brand is off", () => {
+    vi.stubEnv("NEXT_PUBLIC_TIJORAT_BRAND", "");
     render(
       <DynamicTheme>
         <h1>Title</h1>

@@ -7,6 +7,7 @@ describe("withTijoratColors", () => {
   });
 
   test("leaves branding untouched when the brand is off", () => {
+    vi.stubEnv("NEXT_PUBLIC_TIJORAT_BRAND", "");
     const policy = { lightTheme: { primaryColor: "#5469d4" } } as any;
     expect(withTijoratColors(policy)).toBe(policy);
   });

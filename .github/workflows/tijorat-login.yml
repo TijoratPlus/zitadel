@@ -21,14 +21,7 @@ permissions:
   packages: write
 
 env:
-  # Build-time switches, inlined by `next build` (TIJORAT_FORK.md, "Настройка").
-  NEXT_PUBLIC_TIJORAT_BRAND: "true"
-  NEXT_PUBLIC_BASE_PATH: /ui/v2/login
-  NEXT_PUBLIC_THEME_LAYOUT: side-by-side
-  NEXT_PUBLIC_THEME_ROUNDNESS: mid
-  NEXT_PUBLIC_THEME_APPEARANCE: flat
-  NEXT_PUBLIC_AUTO_SUBMIT_CODE: "true"
-  # The build output depends on the variables above, which Nx does not hash: never reuse a cache.
+  # The branded build depends on NEXT_PUBLIC_* variables, which Nx does not hash: never reuse a cache.
   NX_NO_CLOUD: "true"
   NX_SKIP_NX_CACHE: "true"
 
@@ -55,8 +48,19 @@ jobs:
         run: scripts/tijorat/upstream-diff.sh origin/main
       - name: Lint
         run: pnpm nx run --nxBail @zitadel/login:lint
-      - name: Build and unit tests
+      # Unit tests run with the stock theme defaults, as upstream's tests expect them.
+      - name: Unit tests
         run: pnpm nx run --nxBail @zitadel/login:test-unit
+      - name: Build the branded login
+        run: pnpm nx run --nxBail @zitadel/login:build
+        env:
+          # Build-time switches, inlined by `next build` (TIJORAT_FORK.md, "Настройка").
+          NEXT_PUBLIC_TIJORAT_BRAND: "true"
+          NEXT_PUBLIC_BASE_PATH: /ui/v2/login
+          NEXT_PUBLIC_THEME_LAYOUT: side-by-side
+          NEXT_PUBLIC_THEME_ROUNDNESS: mid
+          NEXT_PUBLIC_THEME_APPEARANCE: flat
+          NEXT_PUBLIC_AUTO_SUBMIT_CODE: "true"
       - name: Set up Docker Buildx
         if: github.event_name != 'pull_request'
         uses: docker/setup-buildx-action@v3

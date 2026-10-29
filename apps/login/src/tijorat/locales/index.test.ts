@@ -32,6 +32,7 @@ describe("Tijorat+ locale overlay", () => {
   });
 
   test("only the tijorat namespace when the brand is off", () => {
+    vi.stubEnv("NEXT_PUBLIC_TIJORAT_BRAND", "");
     const messages = getTijoratMessages("ru");
     expect(Object.keys(messages)).toEqual(["tijorat"]);
     expect(messages).toMatchObject({ tijorat: { passkeyOffer: { enable: "Включить" } } });
