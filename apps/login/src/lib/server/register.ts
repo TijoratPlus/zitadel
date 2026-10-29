@@ -2,9 +2,11 @@
 
 import { createSessionAndUpdateCookie, createSessionForIdpAndUpdateCookie } from "@/lib/server/cookie";
 import { addHumanUser, addIDPLink, getLoginSettings, getUserByID, listAuthenticationMethodTypes } from "@/lib/zitadel";
+import { getPasskeyOfferRedirect } from "@/tijorat/passkey/offer"; // TIJORAT
 import { Code, ConnectError, Duration, create } from "@zitadel/client";
 import { Factors } from "@zitadel/proto/zitadel/session/v2/session_pb";
 import { Checks, ChecksJson, ChecksSchema } from "@zitadel/proto/zitadel/session/v2/session_service_pb";
+import { AuthenticationMethodType } from "@zitadel/proto/zitadel/user/v2/user_service_pb"; // TIJORAT
 import { getTranslations } from "next-intl/server";
 import { headers } from "next/headers";
 import { completeFlowOrGetUrl } from "../client";
@@ -159,6 +161,17 @@ export async function registerUser(
 
     if (emailVerificationCheck?.redirect) {
       return emailVerificationCheck;
+    }
+
+    // TIJORAT: offer a passkey right after registration, see src/tijorat/passkey
+    const passkeyOffer = await getPasskeyOfferRedirect({
+      session,
+      loginSettings,
+      authMethods: [AuthenticationMethodType.PASSWORD],
+      requestId: command.requestId,
+    });
+    if (passkeyOffer) {
+      return passkeyOffer;
     }
 
     return completeFlowOrGetUrl(

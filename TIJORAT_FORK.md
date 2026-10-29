@@ -21,13 +21,17 @@ Go-бэкенд (core) не меняется, поэтому core использ
 
 <!-- upstream-files:start -->
 
-| Файл                                          | Крючок                                                                  |
-| --------------------------------------------- | ----------------------------------------------------------------------- |
-| `apps/login/src/app/(login)/layout.tsx`       | Шрифт Inter вместо Lato и favicon Tijorat+ (`src/tijorat/brand`)        |
-| `apps/login/src/components/dynamic-theme.tsx` | Отдаёт разметку страниц `TijoratTheme` (бренд-панель, логотип)          |
-| `apps/login/src/helpers/colors.ts`            | Палитра Tijorat+ вместо стандартных цветов ZITADEL (`withTijoratColors`) |
-| `apps/login/src/i18n/request.ts`              | Тексты Tijorat+ поверх локалей upstream (`getTijoratMessages`)          |
-| `apps/login/src/lib/server/password.ts`       | После входа по паролю предлагает passkey (`getPasskeyOfferRedirect`)    |
+| Файл                                            | Крючок                                                                           |
+| ----------------------------------------------- | -------------------------------------------------------------------------------- |
+| `apps/login/src/app/(login)/layout.tsx`         | При бренде отдаёт `TijoratRootLayout` (весь экран, Inter); favicon Tijorat+      |
+| `apps/login/src/app/(login)/loginname/page.tsx` | Вместо `UsernameForm` — `TijoratSignInForm` (логин и пароль на одном экране)     |
+| `apps/login/src/app/(login)/register/page.tsx`  | Вместо `RegisterForm` — `TijoratSignUpForm` (сразу пароль, без выбора метода)    |
+| `apps/login/src/components/dynamic-theme.tsx`   | Отдаёт разметку страниц `TijoratTheme` (бренд-панель, форма, языки)              |
+| `apps/login/src/helpers/colors.ts`              | Палитра Tijorat+ вместо стандартных цветов ZITADEL (`withTijoratColors`)         |
+| `apps/login/src/i18n/request.ts`                | Языки форка (`tijoratAllowedLanguages`) и тексты Tijorat+ (`getTijoratMessages`) |
+| `apps/login/src/lib/i18n.ts`                    | `LANGS` = en, ru, tg, uz при бренде (`TIJORAT_LANGS`)                            |
+| `apps/login/src/lib/server/password.ts`         | После входа по паролю предлагает passkey (`getPasskeyOfferRedirect`)             |
+| `apps/login/src/lib/server/register.ts`         | После регистрации предлагает passkey (`getPasskeyOfferRedirect`)                 |
 
 <!-- upstream-files:end -->
 
@@ -43,14 +47,36 @@ Go-бэкенд (core) не меняется, поэтому core использ
 
   Цвета, которые админ задал в Branding Settings сам, сохраняются. Заменяются только пустые поля и
   стандартные значения ZITADEL (`cmd/defaults.yaml`, `LabelPolicy`).
+
 - **Шрифт** Inter, включая `cyrillic-ext`.
-- **Разметка страниц:**
-  - на десктопе — тёмно-зелёная бренд-панель слева и форма справа;
-  - на телефоне — логотип над карточкой.
+- **Разметка страниц** как в `tajerp_ui/stories/examples/Login.stories.tsx`: на весь экран, без
+  карточки (`TijoratRootLayout` + `TijoratTheme`).
+  - На больших экранах слева тёмно-зелёная бренд-панель (заголовок, три пункта, ©), справа форма
+    шириной 384px.
+  - Наверху справа переключатель языков RU/TJ/UZ/EN, внизу — переключатель темы.
+  - Поля ввода и кнопки — как `Input`/`Button size="lg"` из tajerp_ui. Поля на остальных экранах
+    (смена пароля, коды, MFA) подогнаны стилями в `tijorat.scss`.
 
   Логотип Tijorat+ встроен как inline-SVG (`src/tijorat/brand/wordmark.tsx`), favicon — как data URI:
   standalone-сервер login не раздаёт `public/` под base path. Логотипы, загруженные в Branding
   Settings, имеют приоритет над встроенным.
+
+- **Вход на одном экране** (`src/tijorat/forms/sign-in-form.tsx`): email/логин и пароль сразу, ссылка
+  «Забыли пароль?», заметная кнопка «Создать аккаунт».
+  - Action `signInWithPassword` сначала вызывает штатный `sendLoginname`, который решает, куда вести
+    пользователя: IdP, только passkey, приглашение, регистрация или ложный шаг пароля для неизвестных.
+  - Пароль проверяется сразу (`sendPassword`), только когда этот шаг ведёт на ввод пароля. Поэтому MFA,
+    смена пароля, подтверждение email, защита от перебора и подсказка passkey работают как раньше.
+- **Регистрация на одном экране** (`src/tijorat/forms/sign-up-form.tsx`): имя, фамилия, email, пароль
+  и повтор, требования к паролю, согласие с условиями.
+  - Выбора «Passkey / Пароль» нет. Passkey предлагается сразу после регистрации.
+- **Языки:** только English, Русский, Тоҷикӣ, O‘zbekcha (латиница).
+  - Полные переводы tg/uz лежат в `src/tijorat/locales/{tg,uz}.json`.
+  - ZITADEL core этих языков не знает, поэтому при бренде список языков login не фильтруется по
+    настройкам инстанса.
+  - Письма и SMS пользователям с языком tg/uz приходят на языке инстанса по умолчанию (ru).
+  - Файлы остальных языков upstream не удалены, чтобы не было конфликтов при обновлении; при бренде
+    они просто не показываются.
 - **Тексты ru/en:** короче и без упоминаний ZITADEL. Лежат в `src/tijorat/locales/{ru,en}.json`.
   API `GetHostedLoginTranslation` всегда возвращает полный набор стандартных текстов ZITADEL. Поэтому
   overlay применяется после него, но только к ключам, где API отдаёт стандартный текст. Если админ
@@ -58,8 +84,8 @@ Go-бэкенд (core) не меняется, поэтому core использ
 
 ### Предложение passkey (`TIJORAT_PASSKEY_OFFER=true`)
 
-Подсказка показывается после успешного входа по паролю, когда пройдены все проверки (смена пароля,
-подтверждение email, MFA), и только если:
+Подсказка показывается после успешного входа по паролю или регистрации с паролем, когда пройдены
+все проверки (смена пароля, подтверждение email, MFA), и только если:
 
 - passkey разрешены политикой входа;
 - у пользователя ещё нет passkey;
@@ -76,16 +102,16 @@ Go-бэкенд (core) не меняется, поэтому core использ
 
 ### Переменные окружения login
 
-| Переменная                         | Когда                 | Значение для Tijorat+                       |
-| ---------------------------------- | --------------------- | ------------------------------------------- |
-| `NEXT_PUBLIC_TIJORAT_BRAND`        | сборка (build-arg)    | `true`                                      |
-| `NEXT_PUBLIC_BASE_PATH`            | сборка                | `/ui/v2/login`                              |
-| `NEXT_PUBLIC_THEME_LAYOUT`         | сборка                | `side-by-side`                              |
-| `NEXT_PUBLIC_THEME_ROUNDNESS`      | сборка                | `mid`                                       |
-| `NEXT_PUBLIC_THEME_APPEARANCE`     | сборка                | `flat`                                      |
-| `NEXT_PUBLIC_AUTO_SUBMIT_CODE`     | сборка                | `true` (код из письма отправляется сам)     |
-| `TIJORAT_PASSKEY_OFFER`            | запуск                | `true`                                      |
-| `EMAIL_VERIFICATION`               | запуск                | `true` (вход только с подтверждённым email) |
+| Переменная                     | Когда              | Значение для Tijorat+                       |
+| ------------------------------ | ------------------ | ------------------------------------------- |
+| `NEXT_PUBLIC_TIJORAT_BRAND`    | сборка (build-arg) | `true`                                      |
+| `NEXT_PUBLIC_BASE_PATH`        | сборка             | `/ui/v2/login`                              |
+| `NEXT_PUBLIC_THEME_LAYOUT`     | сборка             | `side-by-side`                              |
+| `NEXT_PUBLIC_THEME_ROUNDNESS`  | сборка             | `mid`                                       |
+| `NEXT_PUBLIC_THEME_APPEARANCE` | сборка             | `flat`                                      |
+| `NEXT_PUBLIC_AUTO_SUBMIT_CODE` | сборка             | `true` (код из письма отправляется сам)     |
+| `TIJORAT_PASSKEY_OFFER`        | запуск             | `true`                                      |
+| `EMAIL_VERIFICATION`           | запуск             | `true` (вход только с подтверждённым email) |
 
 `NEXT_PUBLIC_*` подставляются в код при `next build`, поэтому задаются при сборке образа, а не при запуске.
 
@@ -105,6 +131,7 @@ Go-бэкенд (core) не меняется, поэтому core использ
   - `Max OTP attempts = 5`.
 
   По умолчанию стоит 0, то есть попытки не ограничены.
+
 - **Login policy:**
   - `Ignore unknown usernames = on` — ответ не выдаёт, существует ли аккаунт;
   - passkey разрешены;
@@ -112,7 +139,7 @@ Go-бэкенд (core) не меняется, поэтому core использ
 - **Password complexity:** минимум 10 символов без обязательных спецсимволов. Длинный пароль
   надёжнее и проще запомнить, чем короткий со «сложными» правилами.
 
-**Языки:** default `ru`, allowed `ru`, `en`.
+**Языки:** язык инстанса по умолчанию — `ru`. Список языков login задаёт сам форк (en, ru, tg, uz), настройка allowed languages инстанса на него не влияет.
 
 ## Обновление от upstream
 

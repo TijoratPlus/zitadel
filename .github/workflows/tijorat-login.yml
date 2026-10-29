@@ -44,8 +44,11 @@ jobs:
           cache: "pnpm"
       - name: Install dependencies
         run: pnpm install --frozen-lockfile --filter "@zitadel/login..."
+      # Compare against zitadel/zitadel itself: the fork's main already contains the fork's changes.
+      - name: Fetch upstream ZITADEL
+        run: git fetch --no-tags https://github.com/zitadel/zitadel.git main:refs/remotes/upstream/main
       - name: Every modified upstream file is declared
-        run: scripts/tijorat/upstream-diff.sh origin/main
+        run: scripts/tijorat/upstream-diff.sh upstream/main
       - name: Lint
         run: pnpm nx run --nxBail @zitadel/login:lint
       # Unit tests run with the stock theme defaults, as upstream's tests expect them.

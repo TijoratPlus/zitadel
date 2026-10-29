@@ -3,6 +3,8 @@ import upstreamEn from "../../../locales/en.json";
 import en from "./en.json";
 import { getTijoratMessages } from "./index";
 import ru from "./ru.json";
+import tg from "./tg.json";
+import uz from "./uz.json";
 
 function leafKeys(value: unknown, prefix = ""): string[] {
   if (value && typeof value === "object") {
@@ -21,14 +23,35 @@ describe("Tijorat+ locale overlay", () => {
   test.each([
     ["en", en],
     ["ru", ru],
+    ["tg", tg],
+    ["uz", uz],
   ])("every reworded %s key exists upstream", (_lang, overlay) => {
     const upstreamKeys = new Set(leafKeys(upstreamEn));
     const reworded = leafKeys(overlay).filter((key) => !key.startsWith("tijorat."));
     expect(reworded.filter((key) => !upstreamKeys.has(key))).toEqual([]);
   });
 
-  test("ru defines every tijorat key that en defines", () => {
-    expect(leafKeys(ru.tijorat).sort()).toEqual(leafKeys(en.tijorat).sort());
+  test.each([
+    ["ru", ru],
+    ["tg", tg],
+    ["uz", uz],
+  ])("%s defines every tijorat key that en defines", (_lang, overlay) => {
+    expect(leafKeys(overlay.tijorat).sort()).toEqual(leafKeys(en.tijorat).sort());
+  });
+
+  test.each([
+    ["tg", tg],
+    ["uz", uz],
+  ])("%s translates every upstream key", (_lang, overlay) => {
+    const translated = new Set(leafKeys(overlay));
+    expect(leafKeys(upstreamEn).filter((key) => !translated.has(key))).toEqual([]);
+  });
+
+  test("tg and uz replace the API texts, which are the instance default language", () => {
+    vi.stubEnv("NEXT_PUBLIC_TIJORAT_BRAND", "true");
+    const apiTexts = { loginname: { title: "С возвращением!" } };
+    expect(getTijoratMessages("tg", {}, apiTexts)).toMatchObject({ loginname: { title: tg.loginname.title } });
+    expect(getTijoratMessages("uz", {}, apiTexts)).toMatchObject({ loginname: { title: uz.loginname.title } });
   });
 
   test("only the tijorat namespace when the brand is off", () => {

@@ -12,6 +12,8 @@ import {
   getLoginSettings,
   getPasswordComplexitySettings,
 } from "@/lib/zitadel";
+import { isTijoratBrand } from "@/tijorat/config"; // TIJORAT
+import { TijoratSignUpForm } from "@/tijorat/forms/sign-up-form"; // TIJORAT
 import { Organization } from "@zitadel/proto/zitadel/org/v2/org_pb";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
@@ -82,6 +84,8 @@ export default async function Page(props: { searchParams: Promise<Record<string 
     );
   }
 
+  const tijorat = isTijoratBrand(); // TIJORAT
+
   return (
     <DynamicTheme branding={branding}>
       <div className="flex flex-col space-y-4">
@@ -100,7 +104,19 @@ export default async function Page(props: { searchParams: Promise<Record<string 
           </Alert>
         )}
 
-        {legal && passwordComplexitySettings && organization && loginSettings.allowLocalAuthentication && (
+        {/* TIJORAT: name, email and password on one screen, see src/tijorat/forms/sign-up-form.tsx */}
+        {legal && passwordComplexitySettings && organization && loginSettings.allowLocalAuthentication && tijorat && (
+          <TijoratSignUpForm
+            legal={legal}
+            passwordComplexitySettings={passwordComplexitySettings}
+            organization={organization}
+            firstname={firstname}
+            lastname={lastname}
+            email={email}
+            requestId={requestId}
+          />
+        )}
+        {legal && passwordComplexitySettings && organization && loginSettings.allowLocalAuthentication && !tijorat && (
           <RegisterForm
             idpCount={!loginSettings?.allowExternalIdp ? 0 : identityProviders.length}
             legal={legal}
