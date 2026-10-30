@@ -4,7 +4,7 @@
   },
   "loginname": {
     "title": "Sign in to Tijorat+",
-    "description": "One account for the till, bookkeeping and every Tijorat+ service.",
+    "description": "Good to see you again",
     "register": "Create account",
     "labels": {
       "loginname": "Email or username",
@@ -36,8 +36,13 @@
   },
   "tijorat": {
     "brand": {
-      "tagline": "Till and bookkeeping for your business",
-      "subtitle": "One account for every Tijorat+ service"
+      "tagline": "Run your shop from anywhere",
+      "subtitle": "Tijorat+ till, stock and reports in one account.",
+      "points": {
+        "one": "One sign-in for every Tijorat+ service",
+        "two": "Works on phone and computer",
+        "three": "Sign in with fingerprint or Face ID"
+      }
     },
     "passkeyOffer": {
       "title": "Sign in faster",
@@ -46,6 +51,27 @@
       "later": "Not now",
       "checking": "Checking your device…",
       "failed": "Could not turn on passkey sign-in. You can try again later in your account settings."
+    },
+    "signIn": {
+      "loginPlaceholder": "you@magazin.tj",
+      "passwordLabel": "Password",
+      "forgot": "Forgot password?",
+      "submit": "Sign in",
+      "noAccount": "No account yet?",
+      "createAccount": "Create account",
+      "resetSent": "If the account exists, we have emailed you a link to reset the password.",
+      "forgotNeedsLogin": "Enter your email or username to reset the password.",
+      "wrongCredentials": "Incorrect email or password."
+    },
+    "signUp": {
+      "submit": "Create account",
+      "passkeyHint": "After signing up you can turn on sign-in with fingerprint or Face ID.",
+      "haveAccount": "Already have an account?",
+      "signIn": "Sign in"
+    },
+    "field": {
+      "showPassword": "Show password",
+      "hidePassword": "Hide password"
     }
   }
 }

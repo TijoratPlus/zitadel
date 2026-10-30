@@ -2,11 +2,15 @@ import deepmerge from "deepmerge";
 import { isTijoratBrand } from "../config";
 import en from "./en.json";
 import ru from "./ru.json";
+import tg from "./tg.json";
+import uz from "./uz.json";
 
 type Messages = Record<string, unknown>;
 
-// Only languages Tijorat+ ships are overlaid; any other locale keeps the upstream texts.
-const OVERLAYS: Record<string, Messages & { tijorat: Messages }> = { en, ru };
+// en and ru reword part of the upstream texts. tg and uz are full translations: upstream and
+// ZITADEL core have no such languages, so these files are the only source of their texts.
+const OVERLAYS: Record<string, Messages & { tijorat: Messages }> = { en, ru, tg, uz };
+const FORK_ONLY_LOCALES = new Set(["tg", "uz"]);
 
 function isObject(value: unknown): value is Messages {
   return !!value && typeof value === "object" && !Array.isArray(value);
@@ -39,8 +43,8 @@ function withoutCustomised(overlay: Messages, stock: unknown, custom: unknown): 
  * Messages to merge last, over the bundled locale (`stock`) and the API texts (`custom`).
  * - The `tijorat` namespace (fork pages and components) is always present and falls back to
  *   English, so its keys never go missing whatever the locale or brand switch.
- * - Rewording of upstream keys (Tijorat+ name instead of ZITADEL, simpler copy) applies only
- *   with the Tijorat+ brand on, and never over a text the admin customised.
+ * - With the Tijorat+ brand on, en/ru reword upstream keys unless the admin customised them,
+ *   and tg/uz replace everything: for them the API only returns the instance default language.
  */
 export function getTijoratMessages(locale: string, stock: Messages = {}, custom: Messages = {}): Messages {
   const overlay = OVERLAYS[locale];
@@ -49,5 +53,8 @@ export function getTijoratMessages(locale: string, stock: Messages = {}, custom:
     return { tijorat };
   }
   const { tijorat: _ownNamespace, ...reworded } = overlay;
+  if (FORK_ONLY_LOCALES.has(locale)) {
+    return { ...reworded, tijorat };
+  }
   return { ...withoutCustomised(reworded, stock, custom), tijorat };
 }

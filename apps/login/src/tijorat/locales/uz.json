@@ -1,0 +1,517 @@
+{
+  "common": {
+    "back": "Orqaga",
+    "title": "Tijorat+ ga kirish"
+  },
+  "accounts": {
+    "title": "Hisoblar",
+    "description": "Foydalanmoqchi bo‘lgan hisobni tanlang.",
+    "addAnother": "Boshqa hisob qo‘shish",
+    "noResults": "Hisob topilmadi",
+    "verified": "tasdiqlangan",
+    "expired": "muddati o‘tgan"
+  },
+  "logout": {
+    "title": "Chiqish",
+    "description": "Seansni tugatish uchun hisobni bosing",
+    "noResults": "Hisob topilmadi",
+    "clear": "Seansni tugatish",
+    "verifiedAt": "Oxirgi faollik: {time}",
+    "success": {
+      "title": "Muvaffaqiyatli chiqildi",
+      "description": "Siz tizimdan muvaffaqiyatli chiqdingiz."
+    }
+  },
+  "loginname": {
+    "title": "Tijorat+ ga kirish",
+    "description": "Sizni yana ko‘rganimizdan xursandmiz",
+    "register": "Hisob yaratish",
+    "submit": "Davom etish",
+    "labels": {
+      "loginname": "Email yoki login",
+      "username": "Foydalanuvchi nomi",
+      "usernameOrPhoneNumber": "Login yoki telefon raqami",
+      "usernameOrEmail": "Email yoki login"
+    },
+    "required": {
+      "loginName": "Bu maydon to‘ldirilishi shart"
+    },
+    "errors": {
+      "internalError": "Ichki xatolik yuz berdi",
+      "couldNotGetLoginSettings": "Kirish sozlamalarini olib bo‘lmadi",
+      "couldNotSearchUsers": "Foydalanuvchilarni qidirib bo‘lmadi",
+      "couldNotGetDomain": "Domenni olib bo‘lmadi",
+      "couldNotGetHost": "Xostni olib bo‘lmadi",
+      "couldNotStartIDPFlow": "Provayder orqali kirishni boshlab bo‘lmadi",
+      "moreThanOneUserFound": "Bir nechta foydalanuvchi topildi. Aniqroq ma’lumot kiriting.",
+      "userNotFound": "Foydalanuvchi tizimda topilmadi",
+      "couldNotCreateSession": "Foydalanuvchi seansini yaratib bo‘lmadi",
+      "initialUserNotSupported": "Boshlang‘ich foydalanuvchi qo‘llab-quvvatlanmaydi",
+      "localAuthenticationNotAllowed": "Parol bilan kirish taqiqlangan. Batafsil ma’lumot uchun administratorga murojaat qiling.",
+      "passkeysNotAllowed": "Kirish kalitlari (passkey) taqiqlangan. Batafsil ma’lumot uchun administratorga murojaat qiling.",
+      "couldNotFindIdentityProvider": "Identifikatsiya provayderi topilmadi.",
+      "userNotActive": "Foydalanuvchi faol emas. Batafsil ma’lumot uchun administratorga murojaat qiling."
+    }
+  },
+  "zitadel": {
+    "errors": {
+      "errorOccured": "Xatolik yuz berdi",
+      "multipleUsersFound": "Bir nechta foydalanuvchi topildi",
+      "userNotFound": "Foydalanuvchi tizimda topilmadi"
+    }
+  },
+  "password": {
+    "verify": {
+      "title": "Parolni kiriting",
+      "description": "Tijorat+ hisobingiz paroli.",
+      "resetPassword": "Parolni unutdingizmi?",
+      "submit": "Davom etish",
+      "labels": {
+        "password": "Parol"
+      },
+      "required": {
+        "password": "Bu maydon to‘ldirilishi shart"
+      },
+      "errors": {
+        "couldNotVerifyPassword": "Parolni tasdiqlab bo‘lmadi",
+        "couldNotResetPassword": "Parolni tiklab bo‘lmadi"
+      },
+      "info": {
+        "passwordResetSent": "Parolni tiklash havolasi yuborildi. Elektron pochtangizni tekshiring"
+      }
+    },
+    "set": {
+      "title": "Parol o‘rnatish",
+      "description": "Hisobingiz uchun parol o‘rnating",
+      "codeSent": "Elektron pochtangizga yangi kod yuborildi.",
+      "noCodeReceived": "Kod kelmadimi?",
+      "resend": "Kodni qayta yuborish",
+      "submit": "Davom etish",
+      "labels": {
+        "code": "Kod",
+        "newPassword": "Yangi parol",
+        "confirmPassword": "Parolni tasdiqlang"
+      },
+      "required": {
+        "code": "Bu maydon to‘ldirilishi shart",
+        "newPassword": "Parolni kiriting!",
+        "confirmPassword": "Bu maydon to‘ldirilishi shart"
+      },
+      "errors": {
+        "couldNotSetPassword": "Parolni o‘rnatib bo‘lmadi",
+        "couldNotResetPassword": "Parolni tiklab bo‘lmadi",
+        "couldNotVerifyPassword": "Parolni tasdiqlab bo‘lmadi"
+      }
+    },
+    "change": {
+      "title": "Parolni o‘zgartirish",
+      "description": "Hisobingiz uchun yangi parol o‘rnating",
+      "submit": "Davom etish",
+      "labels": {
+        "currentPassword": "Joriy parol",
+        "newPassword": "Yangi parol",
+        "confirmPassword": "Parolni tasdiqlang"
+      },
+      "required": {
+        "currentPassword": "Joriy parolni kiriting!",
+        "newPassword": "Yangi parolni kiriting!",
+        "confirmPassword": "Bu maydon to‘ldirilishi shart"
+      },
+      "errors": {
+        "currentPasswordInvalid": "Joriy parol noto‘g‘ri.",
+        "couldNotChangePassword": "Parolni o‘zgartirib bo‘lmadi",
+        "couldNotVerifyPassword": "Parolni tasdiqlab bo‘lmadi",
+        "unknownError": "Noma’lum xatolik"
+      }
+    },
+    "complexity": {
+      "length": "Kamida {minLength} ta belgi.",
+      "hasSymbol": "Maxsus belgi bo‘lishi kerak.",
+      "hasNumber": "Raqam bo‘lishi kerak.",
+      "hasUppercase": "Bosh harf bo‘lishi kerak.",
+      "hasLowercase": "Kichik harf bo‘lishi kerak.",
+      "equals": "Parollar mos keladi.",
+      "matches": "Mos keladi",
+      "doesNotMatch": "Mos kelmaydi"
+    },
+    "errors": {
+      "noHostFound": "Xost topilmadi",
+      "couldNotSendResetLink": "Parolni tiklash havolasini yuborib bo‘lmadi",
+      "couldNotCreateSessionForUser": "Foydalanuvchi seansini yaratib bo‘lmadi",
+      "couldNotVerifyPassword": "Parolni tasdiqlab bo‘lmadi",
+      "failedToAuthenticate": "Kirib bo‘lmadi. Siz {maxPasswordAttempts} ta urinishdan {failedAttempts} tasini ishlatdingiz.{lockoutMessage}",
+      "failedToAuthenticateNoLimit": "Kirib bo‘lmadi.",
+      "accountLockedContactAdmin": " Hisobni blokdan chiqarish uchun administratorga murojaat qiling",
+      "userNotFound": "Foydalanuvchi tizimda topilmadi",
+      "initialUserNotSupported": "Boshlang‘ich foydalanuvchi qo‘llab-quvvatlanmaydi",
+      "userInitialStateNotSupported": "Foydalanuvchining boshlang‘ich holati qo‘llab-quvvatlanmaydi",
+      "codeOrVerificationRequired": "Kodni kiriting yoki foydalanuvchi tasdiqlashidan o‘ting",
+      "verificationRequired": "Foydalanuvchini tasdiqlash talab qilinadi",
+      "couldNotLoadSession": "Seansni yuklab bo‘lmadi",
+      "couldNotLoadAuthMethods": "Kirish usullarini yuklab bo‘lmadi",
+      "failedPrecondition": "Zarur shart bajarilmadi",
+      "sessionNotValid": "Seans yaroqsiz",
+      "passwordVerificationMissing": "Parol tasdiqlanmagan.",
+      "passwordVerificationTooOld": "Parol tasdiqlanganiga ko‘p vaqt bo‘ldi. Parolni qayta kiriting.",
+      "passwordResetNotAllowed": "Parolni tiklash taqiqlangan. Batafsil ma’lumot uchun administratorga murojaat qiling."
+    }
+  },
+  "idp": {
+    "title": "SSO orqali kirish",
+    "description": "Kirish uchun provayderlardan birini tanlang",
+    "orSignInWith": "yoki quyidagi orqali kiring",
+    "signInWithApple": "Apple orqali kirish",
+    "signInWithGoogle": "Google orqali kirish",
+    "signInWithAzureAD": "AzureAD orqali kirish",
+    "signInWithGithub": "GitHub orqali kirish",
+    "signInWithGitlab": "GitLab orqali kirish",
+    "signInWithZitadel": "Zitadel orqali kirish",
+    "loginError": {
+      "title": "Kirib bo‘lmadi",
+      "description": "Kirishda xatolik yuz berdi."
+    },
+    "linkingError": {
+      "title": "Hisobni bog‘lab bo‘lmadi",
+      "description": "Hisobni bog‘lashda xatolik yuz berdi."
+    },
+    "completeRegister": {
+      "title": "Ma’lumotlarni to‘ldiring",
+      "description": "Ro‘yxatdan o‘tishni yakunlash uchun elektron pochta va ismingizni kiriting."
+    },
+    "accountNotFound": {
+      "title": "Hisob topilmadi",
+      "description": "Provayder ma’lumotlaringizga bog‘langan hisob topilmadi.",
+      "info": "Mavjud hisob topilmadi. Mavjud hisob bilan kiring yoki administratorga murojaat qiling.",
+      "backToLogin": "Kirishga qaytish"
+    },
+    "registrationFailed": {
+      "title": "Ro‘yxatdan o‘tish mavjud emas",
+      "description": "Ro‘yxatdan o‘tishni yakunlab bo‘lmadi.",
+      "info": "Ro‘yxatdan o‘tish uchun tashkilotni aniqlab bo‘lmadi. Administratorga murojaat qiling.",
+      "backToLogin": "Kirishga qaytish"
+    },
+    "processing": {
+      "message": "Kirish qayta ishlanmoqda...",
+      "noRedirect": "Server na yo‘naltirish, na xatolik qaytardi",
+      "unexpectedError": "Kutilmagan xatolik yuz berdi"
+    },
+    "errors": {
+      "missingParameters": "Zarur parametrlar yetishmayapti",
+      "missingIdpInfo": "Provayder ma’lumotlari yetishmayapti",
+      "idpNotFound": "Identifikatsiya provayderi topilmadi",
+      "linkingNotAllowed": "Bu provayderga bog‘lash taqiqlangan",
+      "linkingFailed": "Provayderni hisobga bog‘lab bo‘lmadi",
+      "autoLinkingFailed": "Hisobni avtomatik bog‘lab bo‘lmadi",
+      "userCreationFailed": "Foydalanuvchi hisobini yaratib bo‘lmadi",
+      "orgResolutionFailed": "Ro‘yxatdan o‘tish uchun tashkilotni aniqlab bo‘lmadi",
+      "sessionCreationFailed": "Seans yaratilmadi yoki yo‘naltirish aniqlanmadi",
+      "unknownError": "Noma’lum xatolik yuz berdi"
+    }
+  },
+  "ldap": {
+    "title": "LDAP orqali kirish",
+    "description": "LDAP ma’lumotlaringizni kiriting.",
+    "submit": "Davom etish",
+    "labels": {
+      "username": "Foydalanuvchi nomi",
+      "password": "Parol"
+    },
+    "required": {
+      "username": "Bu maydon to‘ldirilishi shart",
+      "password": "Bu maydon to‘ldirilishi shart"
+    }
+  },
+  "mfa": {
+    "verify": {
+      "title": "Shaxsingizni tasdiqlang",
+      "description": "Quyidagi usullardan birini tanlang.",
+      "noResults": "Sozlash uchun ikkinchi tasdiqlash usullari yo‘q."
+    },
+    "set": {
+      "title": "Ikki bosqichli tasdiqlashni sozlash",
+      "description": "Ikkinchi tasdiqlash usullaridan birini tanlang.",
+      "skip": "O‘tkazib yuborish"
+    }
+  },
+  "otp": {
+    "verify": {
+      "title": "Ikki bosqichli tasdiqlash",
+      "totpDescription": "Autentifikator ilovasidagi kodni kiriting.",
+      "smsDescription": "SMS orqali kelgan kodni kiriting.",
+      "emailDescription": "Elektron pochtaga kelgan kodni kiriting.",
+      "noCodeReceived": "Kod kelmadimi?",
+      "resendCode": "Kodni qayta yuborish",
+      "submit": "Davom etish",
+      "labels": {
+        "code": "Kod"
+      },
+      "required": {
+        "code": "Bu maydon to‘ldirilishi shart"
+      }
+    },
+    "set": {
+      "title": "Ikki bosqichli tasdiqlashni sozlash",
+      "totpDescription": "QR kodni autentifikator ilovasi bilan skanerlang.",
+      "smsDescription": "SMS orqali kod olish uchun telefon raqamingizni kiriting.",
+      "emailDescription": "Email orqali kod olish uchun elektron pochtangizni kiriting.",
+      "totpRegisterDescription": "QR kodni skanerlang yoki havolaga qo‘lda o‘ting.",
+      "submit": "Davom etish",
+      "labels": {
+        "code": "Kod"
+      },
+      "required": {
+        "code": "Bu maydon to‘ldirilishi shart"
+      }
+    },
+    "errors": {
+      "couldNotRequestChallenge": "Bir martalik kodni so‘rab bo‘lmadi",
+      "couldNotVerifyCode": "Bir martalik kodni tasdiqlab bo‘lmadi"
+    }
+  },
+  "passkey": {
+    "verify": {
+      "title": "Passkey bilan kirish",
+      "description": "Qurilma barmoq izi, yuz yoki ekran qulfini so‘raydi",
+      "usePassword": "Parol bilan kirish",
+      "submit": "Davom etish",
+      "errors": {
+        "couldNotRequestChallenge": "Passkey so‘rovini bajarib bo‘lmadi",
+        "couldNotVerifyPasskey": "Passkeyni tasdiqlab bo‘lmadi",
+        "noResponseReceived": "Passkey tasdiqlanmadi — javob olinmadi",
+        "noRedirectProvided": "Passkey tasdiqlandi, lekin yo‘naltirish aniqlanmadi",
+        "couldNotRetrievePasskey": "Passkeyni olishda xatolik yuz berdi",
+        "verificationCancelled": "Passkey tasdiqlash bekor qilindi",
+        "verificationFailed": "Passkeyni tasdiqlashda xatolik yuz berdi",
+        "couldNotFindSession": "Seans topilmadi",
+        "couldNotUpdateSession": "Seansni yangilab bo‘lmadi",
+        "userNotFound": "Foydalanuvchi tizimda topilmadi",
+        "couldNotDetermineRedirect": "Passkey tasdiqlangandan keyin yo‘naltirishni aniqlab bo‘lmadi"
+      }
+    },
+    "set": {
+      "title": "Barmoq izi bilan kirish",
+      "description": "Qurilma barmoq izi, yuz yoki ekran qulfini so‘raydi",
+      "info": {
+        "description": "Passkey — qurilma orqali kirish usuli: barmoq izi, Face ID va shunga o‘xshashlar. ",
+        "link": "Passkey haqida"
+      },
+      "skip": "O‘tkazib yuborish",
+      "submit": "Davom etish"
+    }
+  },
+  "u2f": {
+    "verify": {
+      "title": "Ikki bosqichli tasdiqlash",
+      "description": "Hisobingizni qurilmangiz bilan tasdiqlang."
+    },
+    "set": {
+      "title": "Ikki bosqichli tasdiqlashni sozlash",
+      "description": "Qurilmani ikkinchi omil sifatida sozlang.",
+      "submit": "Davom etish"
+    }
+  },
+  "register": {
+    "methods": {
+      "passkey": "Barmoq izi yoki Face ID",
+      "password": "Parol"
+    },
+    "disabled": {
+      "title": "Ro‘yxatdan o‘tish o‘chirilgan",
+      "description": "Ro‘yxatdan o‘tish mavjud emas. Administratorga murojaat qiling."
+    },
+    "missingdata": {
+      "title": "Ma’lumot yetarli emas",
+      "description": "Ro‘yxatdan o‘tish uchun email, ism va familiyani kiriting."
+    },
+    "title": "Hisob yaratish",
+    "description": "Barcha Tijorat+ xizmatlari uchun bitta hisob.",
+    "noMethodAvailableWarning": "Kirish usuli mavjud emas. Administratorga murojaat qiling.",
+    "selectMethod": "Kirish usulini tanlang",
+    "agreeTo": "Ro‘yxatdan o‘tish uchun shartlarni qabul qiling",
+    "termsOfService": "Foydalanish shartlari",
+    "privacyPolicy": "Maxfiylik siyosati",
+    "submit": "Davom etish",
+    "password": {
+      "title": "Parol o‘ylab toping",
+      "description": "Parol Tijorat+ ga kirish uchun kerak bo‘ladi.",
+      "submit": "Davom etish",
+      "labels": {
+        "password": "Parol",
+        "confirmPassword": "Parolni tasdiqlang"
+      },
+      "required": {
+        "password": "Parolni kiriting!",
+        "confirmPassword": "Bu maydon to‘ldirilishi shart"
+      }
+    },
+    "labels": {
+      "firstname": "Ism",
+      "lastname": "Familiya",
+      "email": "Elektron pochta"
+    },
+    "required": {
+      "firstname": "Bu maydon to‘ldirilishi shart",
+      "lastname": "Bu maydon to‘ldirilishi shart",
+      "email": "Bu maydon to‘ldirilishi shart"
+    },
+    "errors": {
+      "couldNotCreateUser": "Foydalanuvchini yaratib bo‘lmadi",
+      "couldNotCreateSession": "Seansni yaratib bo‘lmadi",
+      "userNotFound": "Foydalanuvchi tizimda topilmadi",
+      "couldNotLinkIDP": "Provayderni foydalanuvchiga bog‘lab bo‘lmadi",
+      "couldNotRegisterUser": "Foydalanuvchini ro‘yxatdan o‘tkazib bo‘lmadi"
+    }
+  },
+  "invite": {
+    "title": "Foydalanuvchini taklif qilish",
+    "description": "Taklif qilinadigan foydalanuvchining elektron pochtasi va ismini kiriting.",
+    "info": "Foydalanuvchi keyingi ko‘rsatmalar bilan xat oladi.",
+    "notAllowed": "Sozlamalaringiz foydalanuvchilarni taklif qilishga ruxsat bermaydi.",
+    "submit": "Davom etish",
+    "success": {
+      "title": "Foydalanuvchi taklif qilindi",
+      "description": "Xat muvaffaqiyatli yuborildi.",
+      "verified": "Foydalanuvchi taklif qilindi va elektron pochtasini allaqachon tasdiqlagan.",
+      "notVerifiedYet": "Foydalanuvchi taklif qilindi. U keyingi ko‘rsatmalar bilan xat oladi.",
+      "submit": "Boshqa foydalanuvchini taklif qilish"
+    }
+  },
+  "signedin": {
+    "title": "Xush kelibsiz, {user}!",
+    "description": "Siz Tijorat+ ga kirdingiz.",
+    "continue": "Davom etish",
+    "error": {
+      "title": "Xatolik",
+      "description": "Kirishda xatolik yuz berdi."
+    }
+  },
+  "verify": {
+    "userIdMissing": "userId ko‘rsatilmagan!",
+    "successTitle": "Foydalanuvchi tasdiqlandi",
+    "successDescription": "Foydalanuvchi muvaffaqiyatli tasdiqlandi.",
+    "successContinue": "Davom etish",
+    "setupAuthenticator": "Kirish usulini sozlash",
+    "verify": {
+      "title": "Foydalanuvchini tasdiqlash",
+      "description": "Tasdiqlash xatida kelgan kodni kiriting.",
+      "noCodeReceived": "Kod kelmadimi?",
+      "resendCode": "Kodni qayta yuborish",
+      "codeSent": "Elektron pochtangizga yangi kod yuborildi.",
+      "submit": "Davom etish",
+      "labels": {
+        "code": "Kod"
+      },
+      "required": {
+        "code": "Bu maydon to‘ldirilishi shart"
+      }
+    },
+    "errors": {
+      "couldNotResendEmail": "Xatni qayta yuborib bo‘lmadi",
+      "couldNotVerifyUser": "Foydalanuvchini tasdiqlab bo‘lmadi",
+      "couldNotVerifyInvite": "Taklifni tasdiqlab bo‘lmadi",
+      "couldNotVerifyEmail": "Elektron pochtani tasdiqlab bo‘lmadi",
+      "couldNotVerify": "Tasdiqlab bo‘lmadi",
+      "couldNotLoadUser": "Foydalanuvchini yuklab bo‘lmadi",
+      "couldNotLoadAuthenticators": "Mumkin bo‘lgan kirish usullarini yuklab bo‘lmadi",
+      "couldNotCreateSession": "Seansni yaratib bo‘lmadi",
+      "noHostFound": "Xost topilmadi",
+      "userAlreadyVerified": "Foydalanuvchi allaqachon tasdiqlangan!",
+      "couldNotResendInvite": "Taklifni qayta yuborib bo‘lmadi",
+      "inviteSendFailed": "Taklif xatini yuborib bo‘lmadi",
+      "emailSendFailed": "Tasdiqlash xatini yuborib bo‘lmadi",
+      "contextMissing": "Xatolik yuz berdi. Qaytadan urinib ko‘ring."
+    }
+  },
+  "authenticator": {
+    "title": "Kirish usulini tanlang",
+    "description": "Qulay kirish usulini tanlang",
+    "noMethodsAvailable": "Kirish usullari mavjud emas",
+    "allSetup": "Siz allaqachon kirish usulini sozlagansiz!",
+    "linkWithIDP": "yoki identifikatsiya provayderi bilan bog‘lang",
+    "methods": {
+      "totp": "Autentifikator ilovasi",
+      "u2f": "Xavfsizlik kaliti (U2F)",
+      "otpEmail": "Email orqali kod",
+      "otpSms": "SMS orqali kod",
+      "passkey": "Barmoq izi yoki Face ID",
+      "password": "Parol"
+    }
+  },
+  "device": {
+    "usercode": {
+      "title": "Qurilma kodi",
+      "description": "Ilova yoki qurilmada ko‘rsatilgan kodni kiriting.",
+      "submit": "Davom etish",
+      "labels": {
+        "code": "Kod"
+      },
+      "required": {
+        "code": "Bu maydon to‘ldirilishi shart"
+      }
+    },
+    "request": {
+      "title": "{appName} ulanmoqchi",
+      "description": "{appName} quyidagilarga kirish huquqini oladi:",
+      "disclaimer": "«Ruxsat berish» tugmasini bosib, siz {appName} va Tijorat+ ga ma’lumotlaringizdan ularning foydalanish shartlari va maxfiylik siyosatiga muvofiq foydalanishga ruxsat berasiz. Bu ruxsatni istalgan vaqtda bekor qilishingiz mumkin.",
+      "usercode": "Qurilmangizda ko‘rsatilgan kod:",
+      "submit": "Ruxsat berish",
+      "deny": "Rad etish"
+    },
+    "scope": {
+      "openid": "Shaxsingizni tasdiqlash.",
+      "email": "Elektron pochtangizni ko‘rish.",
+      "profile": "Profilingizning to‘liq ma’lumotlarini ko‘rish.",
+      "offline_access": "Hisobingizga oflayn kirish."
+    }
+  },
+  "error": {
+    "noUserCode": "Foydalanuvchi kodi ko‘rsatilmagan!",
+    "noDeviceRequest": "Qurilma so‘rovi topilmadi.",
+    "unknownContext": "Foydalanuvchi konteksti aniqlanmadi. Avval foydalanuvchi nomini kiriting yoki loginName parametrini ko‘rsating.",
+    "sessionExpired": "Seans muddati tugadi yoki qayta tasdiqlash kerak. Iltimos, qaytadan kiring.",
+    "failedLoading": "Ma’lumotlarni yuklab bo‘lmadi. Qaytadan urinib ko‘ring.",
+    "tryagain": "Qaytadan urinib ko‘ring",
+    "couldNotContinueSession": "Seansni davom ettirib bo‘lmadi — foydalanuvchi ma’lumotlari yo‘q",
+    "couldNotClearSession": "Seansni tugatib bo‘lmadi. Qaytadan urinib ko‘ring."
+  },
+  "tijorat": {
+    "brand": {
+      "tagline": "Do‘koningizni istalgan joydan boshqaring",
+      "subtitle": "Tijorat+ kassa, ombor va hisobotlari — bitta hisobda.",
+      "points": {
+        "one": "Barcha Tijorat+ xizmatlari uchun bitta kirish",
+        "two": "Telefon va kompyuterda ishlaydi",
+        "three": "Barmoq izi yoki Face ID bilan kirish"
+      }
+    },
+    "passkeyOffer": {
+      "title": "Tezroq kiring",
+      "description": "Barmoq izi, Face ID yoki ushbu qurilmaning PIN-kodi bilan kirishni yoqing. Bu paroldan tezroq va xavfsizroq.",
+      "enable": "Yoqish",
+      "later": "Hozir emas",
+      "checking": "Qurilma tekshirilmoqda…",
+      "failed": "Barmoq izi bilan kirishni yoqib bo‘lmadi. Keyinroq hisob sozlamalarida urinib ko‘ring."
+    },
+    "signIn": {
+      "loginPlaceholder": "you@magazin.tj",
+      "passwordLabel": "Parol",
+      "forgot": "Parolni unutdingizmi?",
+      "submit": "Kirish",
+      "noAccount": "Hisobingiz yo‘qmi?",
+      "createAccount": "Hisob yaratish",
+      "resetSent": "Agar bunday hisob mavjud bo‘lsa, elektron pochtaga parolni tiklash havolasini yubordik.",
+      "forgotNeedsLogin": "Parolni tiklash uchun email yoki loginni kiriting.",
+      "wrongCredentials": "Email yoki parol noto‘g‘ri."
+    },
+    "signUp": {
+      "submit": "Hisob yaratish",
+      "passkeyHint": "Ro‘yxatdan o‘tgach, barmoq izi yoki Face ID bilan kirishni yoqishingiz mumkin.",
+      "haveAccount": "Hisobingiz bormi?",
+      "signIn": "Kirish"
+    },
+    "field": {
+      "showPassword": "Parolni ko‘rsatish",
+      "hidePassword": "Parolni yashirish"
+    }
+  }
+}

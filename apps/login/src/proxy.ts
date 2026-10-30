@@ -24,7 +24,8 @@ export async function proxy(request: NextRequest) {
   // Internal infrastructure routes — skip middleware entirely.
   // /healthy and /ready are Kubernetes/Docker health probes that must respond
   // without depending on a ZITADEL backend.
-  const skipPaths = ["/healthy", "/ready"];
+  // TIJORAT: /tijorat/email is called by ZITADEL core, signed, without browser or instance headers.
+  const skipPaths = ["/healthy", "/ready", "/tijorat/email"];
   if (skipPaths.includes(request.nextUrl.pathname)) {
     return NextResponse.next({ request: { headers: requestHeaders } });
   }
