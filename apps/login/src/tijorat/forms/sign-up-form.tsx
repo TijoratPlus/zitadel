@@ -145,6 +145,7 @@ export function TijoratSignUpForm({
         <TjField
           label={t("password.labels.password")}
           type="password"
+          revealable
           autoComplete="new-password"
           data-testid="password-text-input"
           {...register("password", { required: t("password.required.password") })}
@@ -152,6 +153,7 @@ export function TijoratSignUpForm({
         <TjField
           label={t("password.labels.confirmPassword")}
           type="password"
+          revealable
           autoComplete="new-password"
           data-testid="password-confirm-text-input"
           {...register("confirmPassword", { required: t("password.required.confirmPassword") })}

@@ -151,6 +151,7 @@ export function TijoratSignInForm({
         <TjField
           label={t("passwordLabel")}
           type="password"
+          revealable
           autoComplete="current-password"
           data-testid="password-text-input"
           labelAside={

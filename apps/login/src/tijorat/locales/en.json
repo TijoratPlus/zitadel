@@ -68,6 +68,10 @@
       "passkeyHint": "After signing up you can turn on sign-in with fingerprint or Face ID.",
       "haveAccount": "Already have an account?",
       "signIn": "Sign in"
+    },
+    "field": {
+      "showPassword": "Show password",
+      "hidePassword": "Hide password"
     }
   }
 }

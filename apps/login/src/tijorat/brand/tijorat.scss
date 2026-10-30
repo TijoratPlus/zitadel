@@ -89,6 +89,11 @@
   &[aria-invalid="true"] {
     border-color: var(--tj-error);
   }
+
+  // Room for the show/hide password button.
+  &.tj-input-revealable {
+    padding-right: 40px;
+  }
 }
 
 .tj-root label > span:first-child,

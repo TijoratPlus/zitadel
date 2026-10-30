@@ -508,6 +508,10 @@
       "passkeyHint": "Ro‘yxatdan o‘tgach, barmoq izi yoki Face ID bilan kirishni yoqishingiz mumkin.",
       "haveAccount": "Hisobingiz bormi?",
       "signIn": "Kirish"
+    },
+    "field": {
+      "showPassword": "Parolni ko‘rsatish",
+      "hidePassword": "Parolni yashirish"
     }
   }
 }
