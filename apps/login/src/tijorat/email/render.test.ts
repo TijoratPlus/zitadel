@@ -144,6 +144,16 @@ describe("renderEmail", () => {
     expect(email.html).toContain("Open</a>");
   });
 
+  it("keeps markup in ZITADEL's texts as escaped text, never as HTML", () => {
+    const email = renderEmail(undefined, "en", {
+      templateData: { title: "&lt;script&gt;alert(1)&lt;/script&gt;", text: "<<script>script>x</script> &lt;img src=x&gt;" },
+      args: {},
+    });
+    expect(email.html).not.toMatch(/<script|<img src=x/i);
+    expect(email.html).toContain("&lt;script&gt;alert(1)&lt;/script&gt;</h1>");
+    expect(email.html).toContain("&lt;img src=x&gt;");
+  });
+
   it("uses the default language for an unknown locale", () => {
     expect(renderEmail("otp", "de", { args: { oTP: "123456" } }).subject).toBe("Код для входа — Tijorat+");
   });

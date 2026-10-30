@@ -63,14 +63,31 @@ function arg(args: Record<string, unknown> | undefined, key: string): string {
   return typeof value === "string" ? unescapeHtml(value).trim() : "";
 }
 
-/** ZITADEL's own copy (generic fallback) may carry markup; keep its text only. */
+/**
+ * ZITADEL's own copy (generic fallback) may carry markup; keep its text only. The result is plain
+ * text, never HTML: html() escapes it like every other value. Tags are dropped in one pass over
+ * the characters, with <br> kept as a line break.
+ */
 function plain(value: string | undefined): string {
-  return unescapeHtml(
-    (value ?? "")
-      .replace(/<br\s*\/?>/gi, "\n")
-      .replace(/<[^>]*>/g, "")
-      .trim(),
-  );
+  let text = "";
+  let tag: string | undefined;
+  for (const char of value ?? "") {
+    if (tag !== undefined) {
+      if (char === ">") {
+        if (/^br\b/i.test(tag.trim())) {
+          text += "\n";
+        }
+        tag = undefined;
+      } else {
+        tag += char;
+      }
+    } else if (char === "<") {
+      tag = "";
+    } else {
+      text += char;
+    }
+  }
+  return unescapeHtml(text.trim());
 }
 
 /** Only web links become buttons: a javascript: or data: URL from a tampered template is dropped. */
