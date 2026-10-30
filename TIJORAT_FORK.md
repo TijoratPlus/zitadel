@@ -134,10 +134,28 @@ ZITADEL core рендерит письма по своему HTML-шаблону
 
 Включение:
 
+Консоль ZITADEL умеет создавать только SMTP-провайдер, HTTP-провайдер создаётся через Admin API.
+Для этого есть `scripts/tijorat/notification-provider.sh`. Ему нужен токен пользователя с ролью
+`IAM_OWNER` в `ZITADEL_PAT`: service user с Personal Access Token, добавленный в Default Settings →
+Administrators. Токен передаётся только через переменную окружения, не аргументом.
+
 1. В окружение login добавить `TIJORAT_SMTP_*` (см. таблицу ниже).
-2. Создать провайдер: `POST /admin/v1/email/http` с `{"endpoint": "http://<сервис login>:3000/ui/v2/login/tijorat/email"}`.
-   Ответ содержит `signingKey` — записать его в `TIJORAT_EMAIL_SIGNING_KEY` и перезапустить login.
-3. Активировать провайдер: `POST /admin/v1/email/<id>/_activate`.
+2. Создать провайдер. Адрес должен быть публичным: ZITADEL по умолчанию не вызывает частные сети
+   (`HTTPClient.DenyList`), а маршрут защищён подписью.
+
+   ```bash
+   export ZITADEL_PAT=…
+   scripts/tijorat/notification-provider.sh id.tijorat.plus email add-http \
+     https://id.tijorat.plus/ui/v2/login/tijorat/email "Tijorat+ branded emails"
+   ```
+
+   Скрипт печатает `id` и signing key. Ключ записать в `TIJORAT_EMAIL_SIGNING_KEY` и перезапустить login.
+
+3. Проверить, что маршрут включился: неподписанный `POST` на адрес из шага 2 отвечает 401, а не 404.
+4. Активировать: `scripts/tijorat/notification-provider.sh id.tijorat.plus email activate <id>`.
+   Список провайдеров: `… email list`. Ключ перевыпускается через `… email update-http <id> <endpoint> --rotate-key`.
+
+Тот же скрипт работает и с SMS-провайдерами (`sms list`, `sms add-http` и так далее).
 
 Откат — активировать прежний SMTP-провайдер. Он остаётся в списке.
 
