@@ -2,6 +2,7 @@
 
 import { createSessionAndUpdateCookie, createSessionForIdpAndUpdateCookie } from "@/lib/server/cookie";
 import { addHumanUser, addIDPLink, getLoginSettings, getUserByID, listAuthenticationMethodTypes } from "@/lib/zitadel";
+import { tijoratRegistrationLanguage } from "@/tijorat/email/registration-language"; // TIJORAT
 import { getPasskeyOfferRedirect } from "@/tijorat/passkey/offer"; // TIJORAT
 import { Code, ConnectError, Duration, create } from "@zitadel/client";
 import { Factors } from "@zitadel/proto/zitadel/session/v2/session_pb";
@@ -88,6 +89,7 @@ export async function registerUser(
     lastName: command.lastName,
     password: command.password ? command.password : undefined,
     organization: command.organization,
+    preferredLanguage: await tijoratRegistrationLanguage(), // TIJORAT
   }).catch((error) => {
     logger.error("Failed to create user", { error });
     return null;
@@ -234,6 +236,7 @@ export async function registerUserAndLinkToIDP(
     firstName: command.firstName,
     lastName: command.lastName,
     organization: command.organization,
+    preferredLanguage: await tijoratRegistrationLanguage(), // TIJORAT
   });
 
   const idpLink = await addIDPLink({

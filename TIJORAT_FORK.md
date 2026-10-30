@@ -9,6 +9,7 @@ Go-бэкенд (core) не меняется, поэтому core использ
 1. **Новый код — в собственных путях форка.** Upstream их не трогает, поэтому конфликтов там не бывает:
    - `apps/login/src/tijorat/**` — логика, компоненты, стили, тексты;
    - `apps/login/src/app/(login)/passkey/offer/**` — страница, которой нет в upstream;
+   - `apps/login/src/app/tijorat/**` — маршрут писем (`/tijorat/email`), которого нет в upstream;
    - `scripts/tijorat/**`, `.github/workflows/tijorat-*.yml`, этот файл.
 2. **В upstream-файлах — только короткие крючки** (1–5 строк), каждый помечен комментарием `TIJORAT`.
    Найти все: `git grep -n TIJORAT -- apps/login/src`.
@@ -31,7 +32,11 @@ Go-бэкенд (core) не меняется, поэтому core использ
 | `apps/login/src/i18n/request.ts`                | Языки форка (`tijoratAllowedLanguages`) и тексты Tijorat+ (`getTijoratMessages`) |
 | `apps/login/src/lib/i18n.ts`                    | `LANGS` = en, ru, tg, uz при бренде (`TIJORAT_LANGS`)                            |
 | `apps/login/src/lib/server/password.ts`         | После входа по паролю предлагает passkey (`getPasskeyOfferRedirect`)             |
-| `apps/login/src/lib/server/register.ts`         | После регистрации предлагает passkey (`getPasskeyOfferRedirect`)                 |
+| `apps/login/src/lib/server/register.ts`         | После регистрации предлагает passkey; сохраняет язык login как язык пользователя |
+| `apps/login/src/lib/zitadel.ts`                 | `addHumanUser` принимает `preferredLanguage` и кладёт его в профиль              |
+| `apps/login/src/proxy.ts`                       | Middleware пропускает `/tijorat/email`, как `/healthy` и `/ready`                |
+| `apps/login/package.json`                       | Зависимость `nodemailer` (отправка писем)                                        |
+| `pnpm-lock.yaml`                                | Следует за `package.json`; при конфликте — `pnpm install`, не правка руками      |
 
 <!-- upstream-files:end -->
 
@@ -74,7 +79,10 @@ Go-бэкенд (core) не меняется, поэтому core использ
   - Полные переводы tg/uz лежат в `src/tijorat/locales/{tg,uz}.json`.
   - ZITADEL core этих языков не знает, поэтому при бренде список языков login не фильтруется по
     настройкам инстанса.
-  - Письма и SMS пользователям с языком tg/uz приходят на языке инстанса по умолчанию (ru).
+  - Письма на tg/uz рендерит сам форк (см. «Письма»). SMS для tg/uz по-прежнему приходят на языке
+    инстанса по умолчанию (ru).
+  - Новый пользователь получает язык, на котором открыт login, как `preferredLanguage`. Upstream
+    регистрирует без языка, и тогда все письма шли бы на языке инстанса.
   - Файлы остальных языков upstream не удалены, чтобы не было конфликтов при обновлении; при бренде
     они просто не показываются.
 - **Тексты ru/en:** короче и без упоминаний ZITADEL. Лежат в `src/tijorat/locales/{ru,en}.json`.
@@ -98,20 +106,61 @@ Go-бэкенд (core) не меняется, поэтому core использ
   содержит проверенный пароль;
 - завершение OIDC/SAML-запроса заново проверяет сессию штатным `isSessionValid`.
 
+### Письма в бренде Tijorat+ (`TIJORAT_EMAIL_SIGNING_KEY`)
+
+ZITADEL core рендерит письма по своему HTML-шаблону, а заменить шаблон можно только при создании
+инстанса. Поэтому письма рендерит login:
+
+1. В ZITADEL активен **HTTP email provider**. Вместо SMTP он шлёт подписанный JSON на
+   `<login>/ui/v2/login/tijorat/email`: адрес, тип события, ссылку и код.
+2. Маршрут проверяет подпись `ZITADEL-Signature`: HMAC-SHA256 ключом провайдера, окно 5 минут.
+3. Язык берётся из `preferredLanguage` пользователя (`getUserByID`). Если он не en/ru/tg/uz или его
+   не удалось прочитать, письмо уходит на ru.
+4. Письмо собирается в стиле tajerp_ui (`src/tijorat/email/render.ts`):
+   - логотип — PNG, встроенный во вложение по Content-ID, без внешних запросов;
+   - код крупно; кнопка #167d55 и ссылка текстом;
+   - plain-text версия.
+
+   Тексты лежат в `src/tijorat/email/locales/*.json`. Тексты сообщений в консоли ZITADEL при этом
+   не используются.
+
+5. Письмо уходит через SMTP с настройками login (`TIJORAT_SMTP_*`).
+   - Ошибка SMTP возвращает 502, и ZITADEL повторяет отправку.
+   - В логи пишутся тип письма и userID, без адреса и кода.
+
+Виды писем: подтверждение email, сброс пароля, активация, приглашение, код входа, ссылка на passkey,
+смена пароля, смена логина при захвате домена. Для события, которого форк не знает (например, нового
+в upstream), берутся тексты ZITADEL, но в той же вёрстке, так что письмо не теряется.
+
+Включение:
+
+1. В окружение login добавить `TIJORAT_SMTP_*` (см. таблицу ниже).
+2. Создать провайдер: `POST /admin/v1/email/http` с `{"endpoint": "http://<сервис login>:3000/ui/v2/login/tijorat/email"}`.
+   Ответ содержит `signingKey` — записать его в `TIJORAT_EMAIL_SIGNING_KEY` и перезапустить login.
+3. Активировать провайдер: `POST /admin/v1/email/<id>/_activate`.
+
+Откат — активировать прежний SMTP-провайдер. Он остаётся в списке.
+
 ## Настройка
 
 ### Переменные окружения login
 
-| Переменная                     | Когда              | Значение для Tijorat+                       |
-| ------------------------------ | ------------------ | ------------------------------------------- |
-| `NEXT_PUBLIC_TIJORAT_BRAND`    | сборка (build-arg) | `true`                                      |
-| `NEXT_PUBLIC_BASE_PATH`        | сборка             | `/ui/v2/login`                              |
-| `NEXT_PUBLIC_THEME_LAYOUT`     | сборка             | `side-by-side`                              |
-| `NEXT_PUBLIC_THEME_ROUNDNESS`  | сборка             | `mid`                                       |
-| `NEXT_PUBLIC_THEME_APPEARANCE` | сборка             | `flat`                                      |
-| `NEXT_PUBLIC_AUTO_SUBMIT_CODE` | сборка             | `true` (код из письма отправляется сам)     |
-| `TIJORAT_PASSKEY_OFFER`        | запуск             | `true`                                      |
-| `EMAIL_VERIFICATION`           | запуск             | `true` (вход только с подтверждённым email) |
+| Переменная                                   | Когда              | Значение для Tijorat+                                                                |
+| -------------------------------------------- | ------------------ | ------------------------------------------------------------------------------------ |
+| `NEXT_PUBLIC_TIJORAT_BRAND`                  | сборка (build-arg) | `true`                                                                               |
+| `NEXT_PUBLIC_BASE_PATH`                      | сборка             | `/ui/v2/login`                                                                       |
+| `NEXT_PUBLIC_THEME_LAYOUT`                   | сборка             | `side-by-side`                                                                       |
+| `NEXT_PUBLIC_THEME_ROUNDNESS`                | сборка             | `mid`                                                                                |
+| `NEXT_PUBLIC_THEME_APPEARANCE`               | сборка             | `flat`                                                                               |
+| `NEXT_PUBLIC_AUTO_SUBMIT_CODE`               | сборка             | `true` (код из письма отправляется сам)                                              |
+| `TIJORAT_PASSKEY_OFFER`                      | запуск             | `true`                                                                               |
+| `EMAIL_VERIFICATION`                         | запуск             | `true` (вход только с подтверждённым email)                                          |
+| `TIJORAT_EMAIL_SIGNING_KEY`                  | запуск             | ключ HTTP email provider; без него маршрут писем выключен (404)                      |
+| `TIJORAT_EMAIL_INSTANCE_HOST`                | запуск             | необязательно: домен инстанса для чтения языка; по умолчанию — домен ссылки в письме |
+| `TIJORAT_SMTP_HOST`, `TIJORAT_SMTP_PORT`     | запуск             | SMTP-сервер; порт по умолчанию 587 (STARTTLS) или 465                                |
+| `TIJORAT_SMTP_SECURE`                        | запуск             | `true` для TLS сразу (порт 465), иначе обязательный STARTTLS                         |
+| `TIJORAT_SMTP_USER`, `TIJORAT_SMTP_PASSWORD` | запуск             | логин и пароль SMTP                                                                  |
+| `TIJORAT_SMTP_FROM`                          | запуск             | `Tijorat+ <no-reply@tijorat.plus>`                                                   |
 
 `NEXT_PUBLIC_*` подставляются в код при `next build`, поэтому задаются при сборке образа, а не при запуске.
 
@@ -124,8 +173,8 @@ Go-бэкенд (core) не меняется, поэтому core использ
 ### Настройки инстанса ZITADEL (Console или API, без кода)
 
 **Брендинг** (Default settings → Branding): включить «Hide watermark». Login подставит логотип и
-палитру Tijorat+ сам, но письма ZITADEL (подтверждение email, сброс пароля) берут логотип и цвета
-только из этих настроек. Поэтому задайте их там тоже:
+палитру Tijorat+ сам. Письма через SMTP-провайдер ZITADEL (без «Писем в бренде Tijorat+») берут
+логотип и цвета только из этих настроек, поэтому задайте их там тоже:
 
 - логотип — `tajerp_app/assets/brand/tijorat_wordmark.svg`;
 - primary #167d55, фон #f7f9f8, текст #0c1e16, ошибки #c43422.

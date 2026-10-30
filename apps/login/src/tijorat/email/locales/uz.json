@@ -1,0 +1,56 @@
+{
+  "greeting": "Assalomu alaykum, {name}!",
+  "greetingNoName": "Assalomu alaykum!",
+  "codeLabel": "Sizning kodingiz",
+  "linkFallback": "Agar tugma ishlamasa, ushbu havolani brauzerga nusxalang:",
+  "ignore": "Agar bu xatni so‘ramagan bo‘lsangiz, uni e’tiborsiz qoldiring.",
+  "automated": "Bu xat avtomatik yuborilgan, unga javob berish shart emas.",
+  "verifyEmail": {
+    "subject": "Emailni tasdiqlang — Tijorat+",
+    "heading": "Emailni tasdiqlang",
+    "body": "Tijorat+ da ro‘yxatdan o‘tishni yakunlash uchun quyidagi kodni kiriting yoki tugmani bosing.",
+    "button": "Emailni tasdiqlash"
+  },
+  "passwordReset": {
+    "subject": "Parolni tiklash — Tijorat+",
+    "heading": "Parolni tiklash",
+    "body": "Tijorat+ hisobingiz parolini tiklash so‘rovini oldik. Yangi parol o‘rnatish uchun quyidagi kodni kiriting yoki tugmani bosing.",
+    "button": "Yangi parol o‘rnatish"
+  },
+  "initCode": {
+    "subject": "Hisobingizni faollashtiring — Tijorat+",
+    "heading": "Hisobingizni faollashtiring",
+    "body": "Siz uchun Tijorat+ hisobi yaratildi. Parol o‘rnatish va kirish uchun quyidagi kodni kiriting yoki tugmani bosing.",
+    "button": "Hisobni faollashtirish"
+  },
+  "invite": {
+    "subject": "{app} ga taklif",
+    "heading": "Sizni {app} ga taklif qilishdi",
+    "body": "Taklifni qabul qilish, parol o‘rnatish va kirish uchun tugmani bosing.",
+    "button": "Taklifni qabul qilish"
+  },
+  "otp": {
+    "subject": "Kirish kodi — Tijorat+",
+    "heading": "Kirish kodi",
+    "body": "Tijorat+ ga kirish uchun ushbu kodni kiriting. Uni hech kimga aytmang.",
+    "button": "Kirish"
+  },
+  "passkeyLink": {
+    "subject": "Barmoq izi yoki Face ID bilan kirish — Tijorat+",
+    "heading": "Parolsiz kirishni yoqing",
+    "body": "Kirmoqchi bo‘lgan qurilmangizda tugmani bosing va barmoq izi, Face ID yoki PIN-kod bilan tasdiqlang.",
+    "button": "Kirishni yoqish"
+  },
+  "passwordChanged": {
+    "subject": "Parol o‘zgartirildi — Tijorat+",
+    "heading": "Parol o‘zgartirildi",
+    "body": "Tijorat+ hisobingiz paroli hozirgina o‘zgartirildi. Agar bu siz bo‘lmasangiz, darhol kirish sahifasida parolni tiklang.",
+    "button": "Tijorat+ ga kirish"
+  },
+  "domainClaimed": {
+    "subject": "Loginingiz o‘zgartirildi — Tijorat+",
+    "heading": "Loginingiz o‘zgartirildi",
+    "body": "{domain} domeni endi tashkilotga tegishli, shuning uchun loginingiz {username} ga o‘zgartirildi. Kiring va yangi email ko‘rsating.",
+    "button": "Kirish"
+  }
+}
