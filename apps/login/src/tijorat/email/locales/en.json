@@ -1,0 +1,56 @@
+{
+  "greeting": "Hello {name},",
+  "greetingNoName": "Hello,",
+  "codeLabel": "Your code",
+  "linkFallback": "If the button does not work, copy this link into your browser:",
+  "ignore": "If you did not request this email, you can safely ignore it.",
+  "automated": "This email was sent automatically, please do not reply.",
+  "verifyEmail": {
+    "subject": "Confirm your email — Tijorat+",
+    "heading": "Confirm your email",
+    "body": "To finish signing up for Tijorat+, enter the code below or press the button.",
+    "button": "Confirm email"
+  },
+  "passwordReset": {
+    "subject": "Reset your password — Tijorat+",
+    "heading": "Reset your password",
+    "body": "We received a request to reset the password of your Tijorat+ account. Enter the code below or press the button to set a new password.",
+    "button": "Set a new password"
+  },
+  "initCode": {
+    "subject": "Activate your account — Tijorat+",
+    "heading": "Activate your account",
+    "body": "A Tijorat+ account was created for you. Enter the code below or press the button to set a password and sign in.",
+    "button": "Activate account"
+  },
+  "invite": {
+    "subject": "You are invited to {app}",
+    "heading": "You are invited to {app}",
+    "body": "Press the button to accept the invitation, set a password and sign in.",
+    "button": "Accept invitation"
+  },
+  "otp": {
+    "subject": "Your sign-in code — Tijorat+",
+    "heading": "Your sign-in code",
+    "body": "Enter this code to sign in to Tijorat+. Do not share it with anyone.",
+    "button": "Sign in"
+  },
+  "passkeyLink": {
+    "subject": "Sign in with fingerprint or Face ID — Tijorat+",
+    "heading": "Turn on passwordless sign-in",
+    "body": "Press the button on the device you want to sign in with, then confirm with your fingerprint, Face ID or PIN.",
+    "button": "Turn on sign-in"
+  },
+  "passwordChanged": {
+    "subject": "Your password was changed — Tijorat+",
+    "heading": "Your password was changed",
+    "body": "The password of your Tijorat+ account was just changed. If this was not you, reset your password on the sign-in page right away.",
+    "button": "Sign in to Tijorat+"
+  },
+  "domainClaimed": {
+    "subject": "Your username was changed — Tijorat+",
+    "heading": "Your username was changed",
+    "body": "The domain {domain} now belongs to an organization, so your username was changed to {username}. Sign in and set a new email.",
+    "button": "Sign in"
+  }
+}

@@ -1,25 +1,109 @@
-// Tijorat+ layout styles. Every rule is scoped to classes rendered only by TijoratTheme,
-// so importing this file has no effect on the upstream layout.
+// Tijorat+ look, ported from tajerp_ui/styles/tokens.css. Everything is scoped to .tj-root (the body
+// of TijoratRootLayout), so nothing here applies to the upstream layout.
 
-$tj-green: #1d9f6e;
-$tj-forest: #0c1e16;
-$tj-mint: #a8deca;
+.tj-root {
+  --tj-bg: #f7f9f8;
+  --tj-surface: #ffffff;
+  --tj-hairline: #dde8e3;
+  --tj-ink-1: #0c1e16;
+  --tj-ink-2: #2d4438;
+  --tj-ink-3: #557264;
+  --tj-brand: #1d9f6e;
+  --tj-brand-solid: #18865c;
+  --tj-brand-solid-hover: #156b4a;
+  --tj-brand-ink: #156b4a;
+  --tj-brand-deep: #0d4430;
+  --tj-mist: #e6f5ef;
+  --tj-focus: rgba(29, 159, 110, 0.5);
+  --tj-error: #e05c4b;
+  --tj-error-ink: #b42c1c;
+  --tj-shadow-brand: 0 8px 24px rgba(29, 159, 110, 0.22);
 
-.tj-brand-panel {
-  background:
-    radial-gradient(120% 80% at 0% 100%, rgba($tj-green, 0.38), transparent 60%),
-    radial-gradient(80% 60% at 100% 0%, rgba($tj-mint, 0.12), transparent 60%), $tj-forest;
+  background: var(--tj-bg);
+  color: var(--tj-ink-1);
 }
 
-.tj-auth-title h1 {
-  text-align: inherit;
-  font-size: 1.5rem;
-  line-height: 2rem;
+.dark .tj-root,
+.dark.tj-root {
+  --tj-bg: #0a1712;
+  --tj-surface: #0f1d17;
+  --tj-hairline: rgba(168, 222, 202, 0.12);
+  --tj-ink-1: #f1f6f4;
+  --tj-ink-2: #b8cfc6;
+  --tj-ink-3: #7a9c8c;
+  --tj-brand-ink: #a8deca;
+  --tj-brand-deep: #050e0a;
+  --tj-mist: rgba(168, 222, 202, 0.08);
+  --tj-focus: rgba(52, 211, 153, 0.55);
+  --tj-error-ink: #f0997a;
+  --tj-shadow-brand: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+// Headings and paragraphs the upstream pages pass in as the title block.
+.tj-root .tj-auth-title {
+  h1 {
+    text-align: left;
+    font-size: 1.5rem;
+    line-height: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--tj-ink-1);
+  }
+
+  .ztdl-p {
+    font-size: 0.875rem;
+    color: var(--tj-ink-3);
+  }
+}
+
+// Upstream inputs (password change, verify, OTP, …) get the same frame as the fork's fields.
+.tj-root input:not([type="checkbox"]):not([type="radio"]):not([type="hidden"]) {
+  height: 40px;
+  padding: 0 12px;
+  border: 1px solid var(--tj-hairline);
+  border-radius: 10px;
+  background: var(--tj-surface);
+  color: var(--tj-ink-1);
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition:
+    border-color 150ms,
+    box-shadow 150ms;
+
+  &::placeholder {
+    color: var(--tj-ink-3);
+    font-style: normal;
+    font-weight: 400;
+  }
+
+  &:hover {
+    border-color: var(--tj-hairline);
+  }
+
+  &:focus {
+    outline: none;
+    border-color: var(--tj-brand);
+    box-shadow: 0 0 0 2px var(--tj-focus);
+  }
+
+  &[aria-invalid="true"] {
+    border-color: var(--tj-error);
+  }
+
+  // Room for the show/hide password button.
+  &.tj-input-revealable {
+    padding-right: 40px;
+  }
+}
+
+.tj-root label > span:first-child,
+.tj-root .tj-label {
+  font-size: 13px;
   font-weight: 600;
-  letter-spacing: -0.01em;
+  color: var(--tj-ink-2);
 }
 
-.tj-auth :focus-visible {
-  outline: 2px solid rgba($tj-green, 0.55);
+.tj-root :focus-visible {
+  outline: 2px solid var(--tj-focus);
   outline-offset: 2px;
 }

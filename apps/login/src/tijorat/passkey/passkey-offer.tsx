@@ -2,7 +2,6 @@
 
 import { Alert } from "@/components/alert";
 import { AutoSubmitForm } from "@/components/auto-submit-form";
-import { Button, ButtonVariants } from "@/components/button";
 import { Spinner } from "@/components/spinner";
 import { Translated } from "@/components/translated";
 import { coerceToArrayBuffer, coerceToBase64Url } from "@/helpers/base64";
@@ -11,6 +10,7 @@ import { registerPasskeyLink, verifyPasskeyRegistration } from "@/lib/server/pas
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
+import { TjButton } from "../ui/button";
 import { continueAfterPasskeyOffer } from "./actions";
 
 type Props = {
@@ -139,21 +139,14 @@ export function PasskeyOffer({ sessionId, requestId, organization }: Props) {
           <Alert>{error}</Alert>
         </div>
       )}
-      <div className="mt-8 flex w-full flex-row items-center">
-        <Button type="button" variant={ButtonVariants.Secondary} disabled={loading} onClick={later}>
-          <Translated i18nKey="passkeyOffer.later" namespace="tijorat" />
-        </Button>
-        <span className="flex-grow"></span>
-        <Button
-          type="button"
-          variant={ButtonVariants.Primary}
-          disabled={loading}
-          onClick={enable}
-          data-testid="submit-button"
-        >
-          {loading && <Spinner className="mr-2 h-5 w-5" />}
+      <div className="mt-2 flex w-full flex-col gap-3">
+        <TjButton type="button" disabled={loading} onClick={enable} data-testid="submit-button">
+          {loading && <Spinner className="h-5 w-5" />}
           <Translated i18nKey="passkeyOffer.enable" namespace="tijorat" />
-        </Button>
+        </TjButton>
+        <TjButton type="button" variant="ghost" disabled={loading} onClick={later}>
+          <Translated i18nKey="passkeyOffer.later" namespace="tijorat" />
+        </TjButton>
       </div>
       {samlData && <AutoSubmitForm url={samlData.url} fields={samlData.fields} />}
     </div>

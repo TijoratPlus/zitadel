@@ -9,8 +9,9 @@ import ThemeSwitch from "@/components/theme-switch";
 import { LANGS, getLanguage } from "@/lib/i18n";
 import { getServiceConfig } from "@/lib/service-url";
 import { getAllowedLanguages } from "@/lib/zitadel";
-import { tijoratFontClass } from "@/tijorat/brand/font"; // TIJORAT
 import { tijoratMetadata } from "@/tijorat/brand/metadata"; // TIJORAT
+import { TijoratRootLayout } from "@/tijorat/brand/tijorat-root-layout"; // TIJORAT
+import { isTijoratBrand } from "@/tijorat/config"; // TIJORAT
 import * as Tooltip from "@radix-ui/react-tooltip";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
@@ -44,8 +45,13 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     console.error("Failed to load supported languages", e);
   }
 
+  // TIJORAT: full-screen Tijorat+ layout, see src/tijorat/brand/tijorat-root-layout.tsx
+  if (isTijoratBrand()) {
+    return <TijoratRootLayout>{children}</TijoratRootLayout>;
+  }
+
   return (
-    <html className={tijoratFontClass(lato.className)} suppressHydrationWarning>
+    <html className={`${lato.className}`} suppressHydrationWarning>
       <head />
       <body>
         <ThemeProvider>

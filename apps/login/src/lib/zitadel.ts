@@ -458,9 +458,18 @@ export type AddHumanUserData = WithServiceConfig<{
   email: string;
   password?: string;
   organization: string;
+  preferredLanguage?: string; // TIJORAT: see src/tijorat/email/registration-language.ts
 }>;
 
-export async function addHumanUser({ serviceConfig, email, firstName, lastName, password, organization }: AddHumanUserData) {
+export async function addHumanUser({
+  serviceConfig,
+  email,
+  firstName,
+  lastName,
+  password,
+  organization,
+  preferredLanguage, // TIJORAT
+}: AddHumanUserData) {
   const userService: Client<typeof UserService> = await createServiceForHost(UserService, serviceConfig);
 
   let addHumanUserRequest: AddHumanUserRequest = create(AddHumanUserRequestSchema, {
@@ -472,7 +481,7 @@ export async function addHumanUser({ serviceConfig, email, firstName, lastName, 
       },
     },
     username: email,
-    profile: { givenName: firstName, familyName: lastName },
+    profile: { givenName: firstName, familyName: lastName, preferredLanguage }, // TIJORAT: preferredLanguage
     passwordType: password ? { case: "password", value: { password } } : undefined,
   });
 

@@ -4,6 +4,8 @@ import { Translated } from "@/components/translated";
 import { UsernameForm } from "@/components/username-form";
 import { getServiceConfig } from "@/lib/service-url";
 import { getActiveIdentityProviders, getBrandingSettings, getDefaultOrg, getLoginSettings } from "@/lib/zitadel";
+import { isTijoratBrand } from "@/tijorat/config"; // TIJORAT
+import { TijoratSignInForm } from "@/tijorat/forms/sign-in-form"; // TIJORAT
 import { Organization } from "@zitadel/proto/zitadel/org/v2/org_pb";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
@@ -62,7 +64,20 @@ export default async function Page(props: { searchParams: Promise<Record<string 
       </div>
 
       <div className="w-full">
-        {loginSettings?.allowLocalAuthentication && (
+        {/* TIJORAT: login name and password on one screen, see src/tijorat/forms/sign-in-form.tsx */}
+        {loginSettings?.allowLocalAuthentication && isTijoratBrand() && (
+          <TijoratSignInForm
+            loginName={loginName}
+            requestId={requestId}
+            organization={organization}
+            defaultOrganization={defaultOrganization}
+            loginSettings={loginSettings}
+            suffix={orgDomain}
+            submit={submit}
+            allowRegister={!!loginSettings?.allowRegister}
+          />
+        )}
+        {loginSettings?.allowLocalAuthentication && !isTijoratBrand() && (
           <UsernameForm
             loginName={loginName}
             requestId={requestId}

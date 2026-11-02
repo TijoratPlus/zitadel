@@ -1,0 +1,517 @@
+{
+  "common": {
+    "back": "Бозгашт",
+    "title": "Воридшавӣ ба Tijorat+"
+  },
+  "accounts": {
+    "title": "Ҳисобҳо",
+    "description": "Ҳисоберо, ки истифода бурдан мехоҳед, интихоб кунед.",
+    "addAnother": "Ҳисоби дигарро илова кунед",
+    "noResults": "Ҳисобе ёфт нашуд",
+    "verified": "тасдиқшуда",
+    "expired": "мӯҳлаташ гузаштааст"
+  },
+  "logout": {
+    "title": "Баромад",
+    "description": "Барои анҷоми сессия ба ҳисоб пахш кунед",
+    "noResults": "Ҳисобе ёфт нашуд",
+    "clear": "Анҷоми сессия",
+    "verifiedAt": "Фаъолияти охирин: {time}",
+    "success": {
+      "title": "Баромад бомуваффақият анҷом ёфт",
+      "description": "Шумо бомуваффақият баромадед."
+    }
+  },
+  "loginname": {
+    "title": "Воридшавӣ ба Tijorat+",
+    "description": "Аз дидани шумо шодем",
+    "register": "Сохтани ҳисоб",
+    "submit": "Идома",
+    "labels": {
+      "loginname": "Email ё логин",
+      "username": "Номи корбар",
+      "usernameOrPhoneNumber": "Логин ё рақами телефон",
+      "usernameOrEmail": "Email ё логин"
+    },
+    "required": {
+      "loginName": "Ин майдон ҳатмист"
+    },
+    "errors": {
+      "internalError": "Хатои дохилӣ рух дод",
+      "couldNotGetLoginSettings": "Танзимоти воридшавӣ гирифта нашуд",
+      "couldNotSearchUsers": "Ҷустуҷӯи корбарон иҷро нашуд",
+      "couldNotGetDomain": "Домен гирифта нашуд",
+      "couldNotGetHost": "Хост гирифта нашуд",
+      "couldNotStartIDPFlow": "Воридшавӣ тавассути провайдер оғоз нашуд",
+      "moreThanOneUserFound": "Зиёда аз як корбар ёфт шуд. Маълумоти дақиқтар ворид кунед.",
+      "userNotFound": "Корбар дар система ёфт нашуд",
+      "couldNotCreateSession": "Сессияи корбар сохта нашуд",
+      "initialUserNotSupported": "Корбари ибтидоӣ дастгирӣ намешавад",
+      "localAuthenticationNotAllowed": "Воридшавӣ бо парол манъ аст. Барои маълумоти бештар ба администратор муроҷиат кунед.",
+      "passkeysNotAllowed": "Калидҳои дастрасӣ (passkey) манъ аст. Барои маълумоти бештар ба администратор муроҷиат кунед.",
+      "couldNotFindIdentityProvider": "Провайдери шаҳодатнома ёфт нашуд.",
+      "userNotActive": "Корбар фаъол нест. Барои маълумоти бештар ба администратор муроҷиат кунед."
+    }
+  },
+  "zitadel": {
+    "errors": {
+      "errorOccured": "Хато рух дод",
+      "multipleUsersFound": "Якчанд корбар ёфт шуд",
+      "userNotFound": "Корбар дар система ёфт нашуд"
+    }
+  },
+  "password": {
+    "verify": {
+      "title": "Паролро ворид кунед",
+      "description": "Пароли ҳисоби Tijorat+-и шумо.",
+      "resetPassword": "Паролро фаромӯш кардед?",
+      "submit": "Идома",
+      "labels": {
+        "password": "Парол"
+      },
+      "required": {
+        "password": "Ин майдон ҳатмист"
+      },
+      "errors": {
+        "couldNotVerifyPassword": "Парол тасдиқ нашуд",
+        "couldNotResetPassword": "Парол аз нав танзим нашуд"
+      },
+      "info": {
+        "passwordResetSent": "Пайванди иваз кардани парол фиристода шуд. Почтаи электронии худро санҷед"
+      }
+    },
+    "set": {
+      "title": "Гузоштани парол",
+      "description": "Барои ҳисоби худ парол гузоред",
+      "codeSent": "Рамзи нав ба почтаи электронии шумо фиристода шуд.",
+      "noCodeReceived": "Рамзро нагирифтед?",
+      "resend": "Аз нав фиристодани рамз",
+      "submit": "Идома",
+      "labels": {
+        "code": "Рамз",
+        "newPassword": "Пароли нав",
+        "confirmPassword": "Тасдиқи парол"
+      },
+      "required": {
+        "code": "Ин майдон ҳатмист",
+        "newPassword": "Паролро ворид кунед!",
+        "confirmPassword": "Ин майдон ҳатмист"
+      },
+      "errors": {
+        "couldNotSetPassword": "Парол гузошта нашуд",
+        "couldNotResetPassword": "Парол аз нав танзим нашуд",
+        "couldNotVerifyPassword": "Парол тасдиқ нашуд"
+      }
+    },
+    "change": {
+      "title": "Иваз кардани парол",
+      "description": "Барои ҳисоби худ пароли нав гузоред",
+      "submit": "Идома",
+      "labels": {
+        "currentPassword": "Пароли ҷорӣ",
+        "newPassword": "Пароли нав",
+        "confirmPassword": "Тасдиқи парол"
+      },
+      "required": {
+        "currentPassword": "Пароли ҷориро ворид кунед!",
+        "newPassword": "Пароли навро ворид кунед!",
+        "confirmPassword": "Ин майдон ҳатмист"
+      },
+      "errors": {
+        "currentPasswordInvalid": "Пароли ҷорӣ нодуруст аст.",
+        "couldNotChangePassword": "Парол иваз нашуд",
+        "couldNotVerifyPassword": "Парол тасдиқ нашуд",
+        "unknownError": "Хатои номаълум"
+      }
+    },
+    "complexity": {
+      "length": "Ҳадди ақал {minLength} аломат.",
+      "hasSymbol": "Бояд аломати махсус дошта бошад.",
+      "hasNumber": "Бояд рақам дошта бошад.",
+      "hasUppercase": "Бояд ҳарфи калон дошта бошад.",
+      "hasLowercase": "Бояд ҳарфи хурд дошта бошад.",
+      "equals": "Паролҳо мувофиқанд.",
+      "matches": "Мувофиқ аст",
+      "doesNotMatch": "Мувофиқ нест"
+    },
+    "errors": {
+      "noHostFound": "Хост ёфт нашуд",
+      "couldNotSendResetLink": "Пайванди иваз кардани парол фиристода нашуд",
+      "couldNotCreateSessionForUser": "Сессияи корбар сохта нашуд",
+      "couldNotVerifyPassword": "Парол тасдиқ нашуд",
+      "failedToAuthenticate": "Воридшавӣ иҷро нашуд. Шумо {failedAttempts} аз {maxPasswordAttempts} кӯшиши воридкунии паролро истифода бурдед.{lockoutMessage}",
+      "failedToAuthenticateNoLimit": "Воридшавӣ иҷро нашуд.",
+      "accountLockedContactAdmin": " Барои кушодани ҳисоб ба администратор муроҷиат кунед",
+      "userNotFound": "Корбар дар система ёфт нашуд",
+      "initialUserNotSupported": "Корбари ибтидоӣ дастгирӣ намешавад",
+      "userInitialStateNotSupported": "Ҳолати ибтидоии корбар дастгирӣ намешавад",
+      "codeOrVerificationRequired": "Рамз ворид кунед ё тасдиқи корбарро гузаред",
+      "verificationRequired": "Тасдиқи корбар лозим аст",
+      "couldNotLoadSession": "Сессия бор нашуд",
+      "couldNotLoadAuthMethods": "Усулҳои воридшавӣ бор нашуданд",
+      "failedPrecondition": "Шарти зарурӣ иҷро нашуд",
+      "sessionNotValid": "Сессия эътибор надорад",
+      "passwordVerificationMissing": "Тасдиқи парол вуҷуд надорад.",
+      "passwordVerificationTooOld": "Тасдиқи парол кӯҳна шудааст. Паролро аз нав ворид кунед.",
+      "passwordResetNotAllowed": "Иваз кардани парол манъ аст. Барои маълумоти бештар ба администратор муроҷиат кунед."
+    }
+  },
+  "idp": {
+    "title": "Воридшавӣ тавассути SSO",
+    "description": "Барои воридшавӣ яке аз провайдерҳоро интихоб кунед",
+    "orSignInWith": "ё ворид шавед тавассути",
+    "signInWithApple": "Воридшавӣ бо Apple",
+    "signInWithGoogle": "Воридшавӣ бо Google",
+    "signInWithAzureAD": "Воридшавӣ бо AzureAD",
+    "signInWithGithub": "Воридшавӣ бо GitHub",
+    "signInWithGitlab": "Воридшавӣ бо GitLab",
+    "signInWithZitadel": "Воридшавӣ бо Zitadel",
+    "loginError": {
+      "title": "Воридшавӣ иҷро нашуд",
+      "description": "Ҳангоми воридшавӣ хато рух дод."
+    },
+    "linkingError": {
+      "title": "Пайваст кардани ҳисоб иҷро нашуд",
+      "description": "Ҳангоми пайваст кардани ҳисоб хато рух дод."
+    },
+    "completeRegister": {
+      "title": "Маълумотро пурра кунед",
+      "description": "Барои анҷоми бақайдгирӣ почтаи электронӣ ва номи худро ворид кунед."
+    },
+    "accountNotFound": {
+      "title": "Ҳисоб ёфт нашуд",
+      "description": "Ҳисобе, ки бо маълумоти провайдери шумо алоқаманд аст, ёфт нашуд.",
+      "info": "Ҳисоби мавҷуда ёфт нашуд. Бо ҳисоби мавҷуда ворид шавед ё ба администратор муроҷиат кунед.",
+      "backToLogin": "Бозгашт ба воридшавӣ"
+    },
+    "registrationFailed": {
+      "title": "Бақайдгирӣ дастрас нест",
+      "description": "Бақайдгирӣ анҷом нашуд.",
+      "info": "Ташкилот барои бақайдгирӣ муайян нашуд. Ба администратор муроҷиат кунед.",
+      "backToLogin": "Бозгашт ба воридшавӣ"
+    },
+    "processing": {
+      "message": "Воридшавӣ коркард мешавад...",
+      "noRedirect": "Сервер на гузариш ва на хато баргардонд",
+      "unexpectedError": "Хатои ғайричашмдошт рух дод"
+    },
+    "errors": {
+      "missingParameters": "Параметрҳои зарурӣ вуҷуд надоранд",
+      "missingIdpInfo": "Маълумоти провайдер вуҷуд надорад",
+      "idpNotFound": "Провайдери шаҳодатнома ёфт нашуд",
+      "linkingNotAllowed": "Пайваст кардан ба ин провайдер манъ аст",
+      "linkingFailed": "Провайдер ба ҳисоб пайваст нашуд",
+      "autoLinkingFailed": "Ҳисоб ба таври худкор пайваст нашуд",
+      "userCreationFailed": "Ҳисоби корбар сохта нашуд",
+      "orgResolutionFailed": "Ташкилот барои бақайдгирӣ муайян нашуд",
+      "sessionCreationFailed": "Сессия сохта нашуд ё гузариш муайян нашуд",
+      "unknownError": "Хатои номаълум рух дод"
+    }
+  },
+  "ldap": {
+    "title": "Воридшавӣ тавассути LDAP",
+    "description": "Маълумоти LDAP-и худро ворид кунед.",
+    "submit": "Идома",
+    "labels": {
+      "username": "Номи корбар",
+      "password": "Парол"
+    },
+    "required": {
+      "username": "Ин майдон ҳатмист",
+      "password": "Ин майдон ҳатмист"
+    }
+  },
+  "mfa": {
+    "verify": {
+      "title": "Шахсияти худро тасдиқ кунед",
+      "description": "Яке аз усулҳои зеринро интихоб кунед.",
+      "noResults": "Усулҳои дуюми тасдиқ барои танзим нестанд."
+    },
+    "set": {
+      "title": "Танзими тасдиқи дуқадама",
+      "description": "Яке аз усулҳои дуюми тасдиқро интихоб кунед.",
+      "skip": "Гузаштан"
+    }
+  },
+  "otp": {
+    "verify": {
+      "title": "Тасдиқи дуқадама",
+      "totpDescription": "Рамзро аз барномаи аутентификатор ворид кунед.",
+      "smsDescription": "Рамзеро, ки тавассути SMS гирифтед, ворид кунед.",
+      "emailDescription": "Рамзеро, ки ба почтаи электронӣ гирифтед, ворид кунед.",
+      "noCodeReceived": "Рамзро нагирифтед?",
+      "resendCode": "Аз нав фиристодани рамз",
+      "submit": "Идома",
+      "labels": {
+        "code": "Рамз"
+      },
+      "required": {
+        "code": "Ин майдон ҳатмист"
+      }
+    },
+    "set": {
+      "title": "Танзими тасдиқи дуқадама",
+      "totpDescription": "QR-рамзро бо барномаи аутентификатор скан кунед.",
+      "smsDescription": "Рақами телефонро ворид кунед, то рамзро тавассути SMS гиред.",
+      "emailDescription": "Почтаи электрониро ворид кунед, то рамзро тавассути email гиред.",
+      "totpRegisterDescription": "QR-рамзро скан кунед ё ба суроға дастӣ гузаред.",
+      "submit": "Идома",
+      "labels": {
+        "code": "Рамз"
+      },
+      "required": {
+        "code": "Ин майдон ҳатмист"
+      }
+    },
+    "errors": {
+      "couldNotRequestChallenge": "Рамзи яккарата дархост нашуд",
+      "couldNotVerifyCode": "Рамзи яккарата тасдиқ нашуд"
+    }
+  },
+  "passkey": {
+    "verify": {
+      "title": "Воридшавӣ бо passkey",
+      "description": "Дастгоҳ изи ангушт, рӯй ё қулфи экранро талаб мекунад",
+      "usePassword": "Бо парол ворид шудан",
+      "submit": "Идома",
+      "errors": {
+        "couldNotRequestChallenge": "Дархости passkey иҷро нашуд",
+        "couldNotVerifyPasskey": "Passkey тасдиқ нашуд",
+        "noResponseReceived": "Тасдиқи passkey иҷро нашуд — ҷавоб гирифта нашуд",
+        "noRedirectProvided": "Passkey тасдиқ шуд, вале гузариш муайян нашуд",
+        "couldNotRetrievePasskey": "Ҳангоми гирифтани passkey хато рух дод",
+        "verificationCancelled": "Тасдиқи passkey бекор карда шуд",
+        "verificationFailed": "Ҳангоми тасдиқи passkey хато рух дод",
+        "couldNotFindSession": "Сессия ёфт нашуд",
+        "couldNotUpdateSession": "Сессия навсозӣ нашуд",
+        "userNotFound": "Корбар дар система ёфт нашуд",
+        "couldNotDetermineRedirect": "Пас аз тасдиқи passkey гузариш муайян нашуд"
+      }
+    },
+    "set": {
+      "title": "Воридшавӣ бо изи ангушт",
+      "description": "Дастгоҳ изи ангушт, рӯй ё қулфи экранро талаб мекунад",
+      "info": {
+        "description": "Passkey — усули воридшавӣ тавассути дастгоҳ: изи ангушт, Face ID ва монанди инҳо. ",
+        "link": "Дар бораи passkey"
+      },
+      "skip": "Гузаштан",
+      "submit": "Идома"
+    }
+  },
+  "u2f": {
+    "verify": {
+      "title": "Тасдиқи дуқадама",
+      "description": "Ҳисобро бо дастгоҳи худ тасдиқ кунед."
+    },
+    "set": {
+      "title": "Танзими тасдиқи дуқадама",
+      "description": "Дастгоҳро ҳамчун омили дуюм танзим кунед.",
+      "submit": "Идома"
+    }
+  },
+  "register": {
+    "methods": {
+      "passkey": "Изи ангушт ё Face ID",
+      "password": "Парол"
+    },
+    "disabled": {
+      "title": "Бақайдгирӣ хомӯш аст",
+      "description": "Бақайдгирӣ дастрас нест. Ба администратор муроҷиат кунед."
+    },
+    "missingdata": {
+      "title": "Маълумот нокифоя аст",
+      "description": "Барои бақайдгирӣ email, ном ва насабро ворид кунед."
+    },
+    "title": "Сохтани ҳисоб",
+    "description": "Як ҳисоб барои ҳамаи хизматрасониҳои Tijorat+.",
+    "noMethodAvailableWarning": "Усули воридшавӣ дастрас нест. Ба администратор муроҷиат кунед.",
+    "selectMethod": "Усули воридшавиро интихоб кунед",
+    "agreeTo": "Барои бақайдгирӣ шартҳоро қабул кунед",
+    "termsOfService": "Шартҳои истифода",
+    "privacyPolicy": "Сиёсати махфият",
+    "submit": "Идома",
+    "password": {
+      "title": "Парол гузоред",
+      "description": "Парол барои воридшавӣ ба Tijorat+ лозим мешавад.",
+      "submit": "Идома",
+      "labels": {
+        "password": "Парол",
+        "confirmPassword": "Тасдиқи парол"
+      },
+      "required": {
+        "password": "Паролро ворид кунед!",
+        "confirmPassword": "Ин майдон ҳатмист"
+      }
+    },
+    "labels": {
+      "firstname": "Ном",
+      "lastname": "Насаб",
+      "email": "Почтаи электронӣ"
+    },
+    "required": {
+      "firstname": "Ин майдон ҳатмист",
+      "lastname": "Ин майдон ҳатмист",
+      "email": "Ин майдон ҳатмист"
+    },
+    "errors": {
+      "couldNotCreateUser": "Корбар сохта нашуд",
+      "couldNotCreateSession": "Сессия сохта нашуд",
+      "userNotFound": "Корбар дар система ёфт нашуд",
+      "couldNotLinkIDP": "Провайдер ба корбар пайваст нашуд",
+      "couldNotRegisterUser": "Корбар ба қайд гирифта нашуд"
+    }
+  },
+  "invite": {
+    "title": "Даъвати корбар",
+    "description": "Почтаи электронӣ ва номи корбареро, ки даъват мекунед, ворид кунед.",
+    "info": "Корбар мактуб бо дастурҳои минбаъда мегирад.",
+    "notAllowed": "Танзимоти шумо даъвати корбаронро иҷозат намедиҳад.",
+    "submit": "Идома",
+    "success": {
+      "title": "Корбар даъват шуд",
+      "description": "Мактуб бомуваффақият фиристода шуд.",
+      "verified": "Корбар даъват шуд ва почтаи электронии худро аллакай тасдиқ кардааст.",
+      "notVerifiedYet": "Корбар даъват шуд. Ӯ мактуб бо дастурҳои минбаъда мегирад.",
+      "submit": "Даъвати корбари дигар"
+    }
+  },
+  "signedin": {
+    "title": "Хуш омадед, {user}!",
+    "description": "Шумо ба Tijorat+ ворид шудед.",
+    "continue": "Идома",
+    "error": {
+      "title": "Хато",
+      "description": "Ҳангоми воридшавӣ хато рух дод."
+    }
+  },
+  "verify": {
+    "userIdMissing": "userId нишон дода нашудааст!",
+    "successTitle": "Корбар тасдиқ шуд",
+    "successDescription": "Корбар бомуваффақият тасдиқ шуд.",
+    "successContinue": "Идома",
+    "setupAuthenticator": "Танзими усули воридшавӣ",
+    "verify": {
+      "title": "Тасдиқи корбар",
+      "description": "Рамзеро, ки дар мактуби тасдиқ омадааст, ворид кунед.",
+      "noCodeReceived": "Рамзро нагирифтед?",
+      "resendCode": "Аз нав фиристодани рамз",
+      "codeSent": "Рамзи нав ба почтаи электронии шумо фиристода шуд.",
+      "submit": "Идома",
+      "labels": {
+        "code": "Рамз"
+      },
+      "required": {
+        "code": "Ин майдон ҳатмист"
+      }
+    },
+    "errors": {
+      "couldNotResendEmail": "Мактуб аз нав фиристода нашуд",
+      "couldNotVerifyUser": "Корбар тасдиқ нашуд",
+      "couldNotVerifyInvite": "Даъватнома тасдиқ нашуд",
+      "couldNotVerifyEmail": "Почтаи электронӣ тасдиқ нашуд",
+      "couldNotVerify": "Тасдиқ иҷро нашуд",
+      "couldNotLoadUser": "Корбар бор нашуд",
+      "couldNotLoadAuthenticators": "Усулҳои воридшавии имконпазир бор нашуданд",
+      "couldNotCreateSession": "Сессия сохта нашуд",
+      "noHostFound": "Хост ёфт нашуд",
+      "userAlreadyVerified": "Корбар аллакай тасдиқ шудааст!",
+      "couldNotResendInvite": "Даъватнома аз нав фиристода нашуд",
+      "inviteSendFailed": "Мактуби даъват фиристода нашуд",
+      "emailSendFailed": "Мактуби тасдиқ фиристода нашуд",
+      "contextMissing": "Хато рух дод. Бори дигар кӯшиш кунед."
+    }
+  },
+  "authenticator": {
+    "title": "Усули воридшавиро интихоб кунед",
+    "description": "Усули воридшавии дилхоҳро интихоб кунед",
+    "noMethodsAvailable": "Усулҳои воридшавӣ дастрас нестанд",
+    "allSetup": "Шумо аллакай усули воридшавиро танзим кардаед!",
+    "linkWithIDP": "ё бо провайдери шаҳодатнома пайваст кунед",
+    "methods": {
+      "totp": "Барномаи аутентификатор",
+      "u2f": "Калиди амниятӣ (U2F)",
+      "otpEmail": "Рамз тавассути email",
+      "otpSms": "Рамз тавассути SMS",
+      "passkey": "Изи ангушт ё Face ID",
+      "password": "Парол"
+    }
+  },
+  "device": {
+    "usercode": {
+      "title": "Рамзи дастгоҳ",
+      "description": "Рамзеро, ки дар барнома ё дастгоҳ нишон дода шудааст, ворид кунед.",
+      "submit": "Идома",
+      "labels": {
+        "code": "Рамз"
+      },
+      "required": {
+        "code": "Ин майдон ҳатмист"
+      }
+    },
+    "request": {
+      "title": "{appName} мехоҳад пайваст шавад",
+      "description": "{appName} ба инҳо дастрасӣ пайдо мекунад:",
+      "disclaimer": "Бо пахш кардани «Иҷозат додан» шумо ба {appName} ва Tijorat+ иҷозат медиҳед, ки маълумоти шуморо мувофиқи шартҳои истифода ва сиёсати махфияти худ истифода баранд. Дастрасиро ҳар вақт бекор кардан мумкин аст.",
+      "usercode": "Рамзе, ки дар дастгоҳи шумо нишон дода шудааст:",
+      "submit": "Иҷозат додан",
+      "deny": "Рад кардан"
+    },
+    "scope": {
+      "openid": "Тасдиқи шахсияти шумо.",
+      "email": "Дидани почтаи электронии шумо.",
+      "profile": "Дидани маълумоти пурраи профили шумо.",
+      "offline_access": "Дастрасии офлайн ба ҳисоби шумо."
+    }
+  },
+  "error": {
+    "noUserCode": "Рамзи корбар нишон дода нашудааст!",
+    "noDeviceRequest": "Дархости дастгоҳ ёфт нашуд.",
+    "unknownContext": "Контексти корбар муайян нашуд. Аввал номи корбарро ворид кунед ё loginName-ро дар параметрҳо нишон диҳед.",
+    "sessionExpired": "Мӯҳлати сессия гузашт ё тасдиқи такрорӣ лозим аст. Лутфан, аз нав ворид шавед.",
+    "failedLoading": "Маълумот бор нашуд. Бори дигар кӯшиш кунед.",
+    "tryagain": "Бори дигар кӯшиш кунед",
+    "couldNotContinueSession": "Сессияро идома додан ғайриимкон аст — маълумоти корбар нест",
+    "couldNotClearSession": "Сессия анҷом наёфт. Бори дигар кӯшиш кунед."
+  },
+  "tijorat": {
+    "brand": {
+      "tagline": "Мағозаро аз ҳар ҷо идора кунед",
+      "subtitle": "Касса, анбор ва ҳисоботи Tijorat+ — дар як ҳисоб.",
+      "points": {
+        "one": "Як воридшавӣ барои ҳамаи хизматрасониҳои Tijorat+",
+        "two": "Дар телефон ва компютер кор мекунад",
+        "three": "Воридшавӣ бо изи ангушт ё Face ID"
+      }
+    },
+    "passkeyOffer": {
+      "title": "Тезтар ворид шавед",
+      "description": "Воридшавиро бо изи ангушт, Face ID ё PIN-рамзи ин дастгоҳ фаъол кунед. Ин аз парол тезтар ва бехатартар аст.",
+      "enable": "Фаъол кардан",
+      "later": "Ҳоло не",
+      "checking": "Дастгоҳ санҷида мешавад…",
+      "failed": "Воридшавӣ бо изи ангушт фаъол нашуд. Метавонед баъдтар дар танзимоти ҳисоб кӯшиш кунед."
+    },
+    "signIn": {
+      "loginPlaceholder": "you@magazin.tj",
+      "passwordLabel": "Парол",
+      "forgot": "Паролро фаромӯш кардед?",
+      "submit": "Ворид шудан",
+      "noAccount": "Ҳисоб надоред?",
+      "createAccount": "Сохтани ҳисоб",
+      "resetSent": "Агар чунин ҳисоб мавҷуд бошад, мо ба email пайванди иваз кардани паролро фиристодем.",
+      "forgotNeedsLogin": "Барои барқарор кардани парол email ё логинро ворид кунед.",
+      "wrongCredentials": "Email ё парол нодуруст аст."
+    },
+    "signUp": {
+      "submit": "Сохтани ҳисоб",
+      "passkeyHint": "Пас аз бақайдгирӣ воридшавӣ бо изи ангушт ё Face ID-ро фаъол кардан мумкин аст.",
+      "haveAccount": "Аллакай ҳисоб доред?",
+      "signIn": "Ворид шудан"
+    },
+    "field": {
+      "showPassword": "Нишон додани парол",
+      "hidePassword": "Пинҳон кардани парол"
+    }
+  }
+}

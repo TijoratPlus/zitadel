@@ -1,9 +1,12 @@
+import { isTijoratBrand } from "@/tijorat/config"; // TIJORAT
+import { TIJORAT_LANGS } from "@/tijorat/i18n"; // TIJORAT
+
 export interface Lang {
   name: string;
   code: string;
 }
 
-export const LANGS: Lang[] = [
+const UPSTREAM_LANGS: Lang[] = [
   {
     name: "English",
     code: "en",
@@ -65,6 +68,9 @@ export const LANGS: Lang[] = [
     code: "ar",
   },
 ];
+
+// TIJORAT: only en, ru, tg and uz with the Tijorat+ brand, see src/tijorat/i18n.ts
+export const LANGS: Lang[] = isTijoratBrand() ? TIJORAT_LANGS : UPSTREAM_LANGS;
 
 export const LANGUAGE_COOKIE_NAME = "NEXT_LOCALE";
 export const LANGUAGE_HEADER_NAME = "accept-language";

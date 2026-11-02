@@ -1,6 +1,7 @@
 import { LANGS, LANGUAGE_COOKIE_NAME, LANGUAGE_HEADER_NAME } from "@/lib/i18n";
 import { getServiceConfig } from "@/lib/service-url";
 import { getAllowedLanguages, getHostedLoginTranslation } from "@/lib/zitadel";
+import { tijoratAllowedLanguages } from "@/tijorat/i18n"; // TIJORAT
 import { getTijoratMessages } from "@/tijorat/locales"; // TIJORAT
 import { JsonObject } from "@zitadel/client";
 import deepmerge from "deepmerge";
@@ -29,6 +30,7 @@ export default getRequestConfig(async () => {
   } catch (e) {
     console.warn("Failed to load global settings", e);
   }
+  allowedLanguages = tijoratAllowedLanguages(allowedLanguages); // TIJORAT: tg and uz are unknown to core
 
   let locale: string = defaultLanguage;
 
