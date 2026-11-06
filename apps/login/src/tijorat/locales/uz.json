@@ -512,6 +512,117 @@
     "field": {
       "showPassword": "Parolni ko‘rsatish",
       "hidePassword": "Parolni yashirish"
+    },
+    "account": {
+      "title": "Mening hisobim",
+      "subtitle": "Tijorat+ dagi shaxsiy ma’lumotlar, kirish va xavfsizlik.",
+      "common": {
+        "save": "Saqlash",
+        "cancel": "Bekor qilish",
+        "saved": "Saqlandi",
+        "change": "O‘zgartirish",
+        "add": "Qo‘shish",
+        "remove": "O‘chirish",
+        "confirm": "Tasdiqlash",
+        "verified": "tasdiqlangan",
+        "notVerified": "tasdiqlanmagan",
+        "enabled": "yoqilgan",
+        "enable": "Yoqish",
+        "disable": "O‘chirish"
+      },
+      "profile": {
+        "title": "Profil",
+        "givenName": "Ism",
+        "familyName": "Familiya",
+        "language": "Xatlar va interfeys tili"
+      },
+      "email": {
+        "title": "Email",
+        "new": "Yangi email",
+        "sendCode": "Kod yuborish",
+        "codeSent": "Kodni {email} manziliga yubordik.",
+        "code": "Xatdagi kod",
+        "resend": "Kodni qayta yuborish",
+        "resent": "Kod qayta yuborildi",
+        "verifyNow": "Emailni tasdiqlash"
+      },
+      "phone": {
+        "title": "Telefon",
+        "none": "Raqam ko‘rsatilmagan",
+        "new": "Telefon raqami",
+        "sendCode": "Kodli SMS yuborish",
+        "codeSent": "Kodli SMSni {phone} raqamiga yubordik.",
+        "code": "SMSdagi kod"
+      },
+      "password": {
+        "title": "Parol",
+        "current": "Joriy parol",
+        "new": "Yangi parol",
+        "repeat": "Yangi parolni takrorlang",
+        "changed": "Parol o‘zgartirildi",
+        "mismatch": "Parollar mos kelmadi",
+        "noPassword": "Siz parolsiz kirasiz — passkey yoki tashqi hisob orqali.",
+        "rules": {
+          "minLength": "Kamida {n} ta belgi",
+          "lowercase": "Kichik harf",
+          "uppercase": "Bosh harf",
+          "number": "Raqam",
+          "symbol": "Maxsus belgi"
+        }
+      },
+      "passkeys": {
+        "title": "Barmoq izi yoki Face ID bilan kirish",
+        "description": "Passkey — barmoq izi, Face ID yoki qurilma PIN-kodi bilan parolsiz kirish.",
+        "none": "Hali passkey qo‘shilmagan.",
+        "add": "Passkey qo‘shish",
+        "defaultName": "Passkey",
+        "added": "Passkey qo‘shildi",
+        "removed": "Passkey o‘chirildi"
+      },
+      "twoFactor": {
+        "title": "Ikki bosqichli autentifikatsiya",
+        "description": "Paroldan keyingi ikkinchi bosqich parol oshkor bo‘lsa ham hisobni himoya qiladi.",
+        "totp": "Autentifikator ilovasi",
+        "totpHint": "Google Authenticator, Microsoft Authenticator va boshqalar",
+        "otpEmail": "Email orqali kod",
+        "otpSms": "SMS orqali kod",
+        "u2f": "Xavfsizlik kaliti",
+        "u2fHint": "USB yoki NFC kalit, barmoq izi",
+        "scan": "QR-kodni autentifikator ilovasida skanerlang yoki kalitni qo‘lda kiriting:",
+        "code": "Ilovadagi kod",
+        "needsPhone": "Avval telefon raqamini qo‘shing va tasdiqlang.",
+        "needsEmail": "Avval emailni tasdiqlang.",
+        "addKey": "Kalit qo‘shish",
+        "defaultKeyName": "Xavfsizlik kaliti"
+      },
+      "sessions": {
+        "title": "Qurilmalar",
+        "current": "Shu qurilma",
+        "unknown": "Noma’lum qurilma",
+        "lastActive": "Faollik: {date}",
+        "signOutOthers": "Boshqa qurilmalardan chiqish",
+        "signedOutOthers": "Boshqa qurilmalardan chiqildi: {count}",
+        "signOut": "Chiqish"
+      },
+      "reauth": {
+        "title": "Bu siz ekanligingizni tasdiqlang",
+        "description": "Bu amal uchun kirishni qayta tasdiqlash kerak.",
+        "password": "Parol",
+        "withPassword": "Parol bilan tasdiqlash",
+        "withPasskey": "Barmoq izi yoki Face ID bilan tasdiqlash"
+      },
+      "errors": {
+        "sessionExpired": "Sessiya muddati tugadi. Qayta kiring.",
+        "invalidCode": "Kod noto‘g‘ri yoki eskirgan.",
+        "wrongPassword": "Parol noto‘g‘ri.",
+        "weakPassword": "Parol talablarga mos emas.",
+        "invalidInput": "Kiritilgan ma’lumotlarni tekshiring.",
+        "notAvailable": "Hozir bu mavjud emas. Keyinroq urinib ko‘ring yoki yordamga murojaat qiling.",
+        "alreadyExists": "Bu allaqachon qo‘shilgan.",
+        "cancelled": "Tasdiqlash bekor qilindi yoki bajarilmadi.",
+        "generic": "Bajarilmadi. Qayta urinib ko‘ring.",
+        "mfaRequired": "Kirishning ikkinchi omilini tasdiqlang."
+      }
     }
   }
 }
