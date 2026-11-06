@@ -1,13 +1,15 @@
+import { createHash } from "node:crypto";
 import { emailKindFor } from "./kinds";
-import { emailLocale, EmailPayload, RenderedEmail, renderEmail } from "./render";
+import { OutgoingEmail } from "./resend";
 import { SIGNATURE_HEADER, verifyZitadelSignature } from "./signature";
+import { emailLocale, EmailPayload, genericEmail, templateVariables } from "./variables";
 
 const MAX_BODY_BYTES = 64 * 1024;
 
 type Payload = EmailPayload & { contextInfo?: { recipientEmailAddress?: unknown; eventType?: unknown } };
 
 export type EmailWebhookDeps = {
-  send: (to: string, email: RenderedEmail) => Promise<void>;
+  send: (to: string, email: OutgoingEmail) => Promise<void>;
   preferredLanguage: (userId: string, url: string | undefined) => Promise<string | undefined>;
   log: (level: "info" | "warn" | "error", message: string, meta?: Record<string, unknown>) => void;
 };
@@ -17,9 +19,10 @@ function status(code: number): Response {
 }
 
 /**
- * Receives ZITADEL's HTTP email provider call, renders the Tijorat+ email and sends it over SMTP.
+ * Receives ZITADEL's HTTP email provider call and sends the Tijorat+ email through its Resend
+ * template (resend.ts).
  * Off (404) unless TIJORAT_EMAIL_SIGNING_KEY holds the provider's signing key. A non-2xx answer
- * makes ZITADEL retry the notification, so only a failed SMTP send returns 502.
+ * makes ZITADEL retry the notification, so only a failed send returns 502.
  * Logs never carry the address or the code.
  */
 export async function handleEmailWebhook(request: Request, deps: EmailWebhookDeps): Promise<Response> {
@@ -62,7 +65,14 @@ export async function handleEmailWebhook(request: Request, deps: EmailWebhookDep
   const locale = emailLocale(language);
 
   try {
-    await deps.send(recipient, renderEmail(kind, locale, payload));
+    // ZITADEL re-signs a retry but sends the same body, so the body identifies the notification.
+    const idempotencyKey = createHash("sha256").update(raw).digest("hex");
+    await deps.send(
+      recipient,
+      kind
+        ? { kind, locale, variables: templateVariables(kind, payload), idempotencyKey }
+        : { locale, ...genericEmail(payload), idempotencyKey },
+    );
   } catch (error) {
     deps.log("error", "sending email failed", { kind: kind ?? eventType, userId, error: String(error) });
     return status(502);

@@ -2,7 +2,7 @@
 import { createLogger } from "@/lib/logger";
 import { handleEmailWebhook } from "@/tijorat/email/handler";
 import { preferredLanguage } from "@/tijorat/email/language";
-import { sendEmail } from "@/tijorat/email/send";
+import { sendEmail } from "@/tijorat/email/resend";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
