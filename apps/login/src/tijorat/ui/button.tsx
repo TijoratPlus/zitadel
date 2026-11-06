@@ -8,6 +8,8 @@ const VARIANTS = {
   outline:
     "border-[1.5px] border-[color-mix(in_srgb,var(--tj-brand)_40%,transparent)] bg-transparent text-[var(--tj-brand-ink)] hover:bg-[var(--tj-mist)]",
   ghost: "bg-transparent text-[var(--tj-ink-2)] hover:bg-[var(--tj-mist)] hover:text-[var(--tj-brand-ink)]",
+  danger:
+    "border-[1.5px] border-[color-mix(in_srgb,var(--tj-error-ink)_35%,transparent)] bg-transparent text-[var(--tj-error-ink)] hover:bg-[color-mix(in_srgb,var(--tj-error-ink)_8%,transparent)]",
 } as const;
 
 export type TjButtonVariant = keyof typeof VARIANTS;

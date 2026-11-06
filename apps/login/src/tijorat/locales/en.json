@@ -72,6 +72,123 @@
     "field": {
       "showPassword": "Show password",
       "hidePassword": "Hide password"
+    },
+    "account": {
+      "title": "My account",
+      "subtitle": "Personal details, sign-in and security for Tijorat+.",
+      "common": {
+        "save": "Save",
+        "cancel": "Cancel",
+        "saved": "Saved",
+        "change": "Change",
+        "add": "Add",
+        "remove": "Remove",
+        "confirm": "Confirm",
+        "verified": "verified",
+        "notVerified": "not verified",
+        "enabled": "on",
+        "enable": "Turn on",
+        "disable": "Turn off"
+      },
+      "profile": {
+        "title": "Profile",
+        "givenName": "First name",
+        "familyName": "Last name",
+        "language": "Language for emails and the interface"
+      },
+      "email": {
+        "title": "Email",
+        "new": "New email",
+        "sendCode": "Send code",
+        "codeSent": "We sent a code to {email}.",
+        "code": "Code from the email",
+        "resend": "Send the code again",
+        "resent": "Code sent again",
+        "verifyNow": "Verify email"
+      },
+      "phone": {
+        "title": "Phone",
+        "none": "No phone number",
+        "new": "Phone number",
+        "sendCode": "Send SMS code",
+        "codeSent": "We sent an SMS code to {phone}.",
+        "code": "Code from the SMS"
+      },
+      "password": {
+        "title": "Password",
+        "current": "Current password",
+        "new": "New password",
+        "repeat": "Repeat the new password",
+        "changed": "Password changed",
+        "mismatch": "The passwords do not match",
+        "noPassword": "You sign in without a password, with a passkey or an external account.",
+        "rules": {
+          "minLength": "At least {n} characters",
+          "lowercase": "A lowercase letter",
+          "uppercase": "An uppercase letter",
+          "number": "A number",
+          "symbol": "A symbol"
+        }
+      },
+      "passkeys": {
+        "title": "Sign in with fingerprint or Face ID",
+        "description": "A passkey lets you sign in without a password, using your fingerprint, Face ID or device PIN.",
+        "none": "No passkeys yet.",
+        "add": "Add a passkey",
+        "defaultName": "Passkey",
+        "added": "Passkey added",
+        "removed": "Passkey removed"
+      },
+      "twoFactor": {
+        "title": "Two-factor authentication",
+        "description": "A second step after your password keeps the account safe even if the password leaks.",
+        "totp": "Authenticator app",
+        "totpHint": "Google Authenticator, Microsoft Authenticator and others",
+        "otpEmail": "Code by email",
+        "otpSms": "Code by SMS",
+        "u2f": "Security key",
+        "u2fHint": "USB or NFC key, fingerprint",
+        "scan": "Scan the QR code in your authenticator app or enter the key manually:",
+        "code": "Code from the app",
+        "needsPhone": "Add and verify a phone number first.",
+        "needsEmail": "Verify your email first.",
+        "addKey": "Add a key",
+        "defaultKeyName": "Security key"
+      },
+      "sessions": {
+        "title": "Devices",
+        "current": "This device",
+        "unknown": "Unknown device",
+        "lastActive": "Last active: {date}",
+        "signOutOthers": "Sign out on other devices",
+        "signedOutOthers": "Signed out on other devices: {count}",
+        "signOut": "Sign out"
+      },
+      "reauth": {
+        "title": "Confirm it's you",
+        "description": "This action needs you to confirm your sign-in again.",
+        "password": "Password",
+        "withPassword": "Confirm with password",
+        "withPasskey": "Confirm with fingerprint or Face ID"
+      },
+      "errors": {
+        "sessionExpired": "Your session has expired. Please sign in again.",
+        "invalidCode": "The code is wrong or has expired.",
+        "wrongPassword": "Wrong password.",
+        "weakPassword": "The password does not meet the requirements.",
+        "invalidInput": "Please check what you entered.",
+        "notAvailable": "This is not available right now. Try later or contact support.",
+        "alreadyExists": "This is already added.",
+        "cancelled": "The confirmation was cancelled or failed.",
+        "generic": "Something went wrong. Please try again.",
+        "mfaRequired": "Confirm your second sign-in factor."
+      },
+      "tabs": {
+        "label": "Account sections",
+        "profile": "Profile",
+        "security": "Security",
+        "devices": "Devices"
+      }
     }
   }
 }
