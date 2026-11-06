@@ -622,6 +622,12 @@
         "cancelled": "Tasdiqlash bekor qilindi yoki bajarilmadi.",
         "generic": "Bajarilmadi. Qayta urinib ko‘ring.",
         "mfaRequired": "Kirishning ikkinchi omilini tasdiqlang."
+      },
+      "tabs": {
+        "label": "Hisob bo'limlari",
+        "profile": "Profil",
+        "security": "Xavfsizlik",
+        "devices": "Qurilmalar"
       }
     }
   }

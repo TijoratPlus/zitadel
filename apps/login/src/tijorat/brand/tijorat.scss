@@ -96,6 +96,15 @@
   }
 }
 
+// Phones: 16px text so iOS does not zoom into a focused field, and a 44px touch target.
+@media (max-width: 639px) {
+  .tj-root input:not([type="checkbox"]):not([type="radio"]):not([type="hidden"]),
+  .tj-root select {
+    height: 44px;
+    font-size: 1rem;
+  }
+}
+
 .tj-root label > span:first-child,
 .tj-root .tj-label {
   font-size: 13px;

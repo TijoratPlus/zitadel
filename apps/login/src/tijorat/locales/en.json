@@ -182,6 +182,12 @@
         "cancelled": "The confirmation was cancelled or failed.",
         "generic": "Something went wrong. Please try again.",
         "mfaRequired": "Confirm your second sign-in factor."
+      },
+      "tabs": {
+        "label": "Account sections",
+        "profile": "Profile",
+        "security": "Security",
+        "devices": "Devices"
       }
     }
   }

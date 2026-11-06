@@ -2,9 +2,9 @@
 
 import ThemeSwitch from "@/components/theme-switch";
 import { useLocale, useTranslations } from "next-intl";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { QRCodeSVG } from "qrcode.react";
-import { createContext, useCallback, useContext, useState } from "react";
+import { createContext, ReactNode, useCallback, useContext, useEffect, useState } from "react";
 import { TijoratWordmark } from "../../brand/wordmark";
 import { TIJORAT_LANGS } from "../../i18n";
 import { TjButton, TjLinkButton } from "../../ui/button";
@@ -115,9 +115,9 @@ function ReauthDialog({ data, onDone }: { data: AccountData; onDone: (ok: boolea
       role="dialog"
       aria-modal="true"
       aria-labelledby="reauth-title"
-      className="fixed inset-0 z-50 grid place-items-center bg-black/40 p-4"
+      className="fixed inset-0 z-50 grid items-end bg-black/40 sm:place-items-center sm:p-4"
     >
-      <div className="w-full max-w-sm rounded-2xl bg-[var(--tj-surface)] p-6 shadow-xl">
+      <div className="w-full rounded-t-2xl bg-[var(--tj-surface)] p-6 pb-[max(24px,env(safe-area-inset-bottom))] shadow-xl sm:max-w-sm sm:rounded-2xl sm:pb-6">
         <h2 id="reauth-title" className="text-[18px] font-semibold text-[var(--tj-ink-1)]">
           {t("reauth.title")}
         </h2>
@@ -847,13 +847,27 @@ function SessionsSection({ data }: { data: AccountData }) {
           </p>
         </AccountRow>
       ))}
-      <div className="mt-4 flex flex-wrap gap-2">
+      <div className="mt-4 flex flex-col gap-2 border-t border-[var(--tj-hairline)] pt-4 sm:flex-row">
         {others > 0 && (
-          <TjButton variant="outline" block={false} onClick={signOutOthers} disabled={busy} data-testid="sign-out-others">
+          <TjButton
+            variant="outline"
+            block={false}
+            className="w-full sm:w-auto"
+            onClick={signOutOthers}
+            disabled={busy}
+            data-testid="sign-out-others"
+          >
             {t("sessions.signOutOthers")}
           </TjButton>
         )}
-        <TjButton variant="ghost" block={false} onClick={signOut} disabled={busy} data-testid="sign-out">
+        <TjButton
+          variant="danger"
+          block={false}
+          className="w-full sm:w-auto"
+          onClick={signOut}
+          disabled={busy}
+          data-testid="sign-out"
+        >
           {t("sessions.signOut")}
         </TjButton>
       </div>
@@ -864,45 +878,262 @@ function SessionsSection({ data }: { data: AccountData }) {
 
 // ---- page ----------------------------------------------------------------------------------
 
-function Header({ name }: { name: string }) {
+const TABS = ["profile", "security", "devices"] as const;
+type Tab = (typeof TABS)[number];
+
+function TabIcon({ tab }: { tab: Tab }) {
+  const paths: Record<Tab, ReactNode> = {
+    profile: (
+      <>
+        <circle cx="12" cy="8" r="4" />
+        <path d="M4 20c1.5-3.5 4.5-5 8-5s6.5 1.5 8 5" />
+      </>
+    ),
+    security: (
+      <>
+        <path d="M12 3l7 3v5c0 4.5-3 8.5-7 10-4-1.5-7-5.5-7-10V6l7-3z" />
+        <path d="M9 12l2 2 4-4" />
+      </>
+    ),
+    devices: (
+      <>
+        <rect x="3" y="4" width="14" height="10" rx="1.5" />
+        <path d="M7 18h6" />
+        <rect x="16" y="9" width="5" height="11" rx="1.2" />
+      </>
+    ),
+  };
   return (
-    <header className="sticky top-0 z-10 border-b border-[var(--tj-hairline)] bg-[var(--tj-surface)]/90 backdrop-blur">
-      <div className="mx-auto flex h-16 max-w-3xl items-center justify-between gap-3 px-4">
-        <TijoratWordmark height={26} className="text-[#1d9f6e] dark:text-white" />
-        <div className="flex items-center gap-2">
-          <span className="hidden max-w-[180px] truncate text-[13px] font-medium text-[var(--tj-ink-2)] sm:inline">
-            {name}
-          </span>
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="size-[22px] shrink-0 lg:size-5"
+      aria-hidden="true"
+    >
+      {paths[tab]}
+    </svg>
+  );
+}
+
+const TAB_KEY = "tj-account-tab";
+
+function isTab(value: string | null | undefined): value is Tab {
+  return TABS.includes(value as Tab);
+}
+
+/**
+ * The open tab, kept in the address (?tab=…) and in sessionStorage: Next.js puts its own URL back
+ * after a server action, so a later reload finds the tab in sessionStorage instead.
+ */
+function useTab(): [Tab, (tab: Tab) => void] {
+  const fromUrl = useSearchParams().get("tab");
+  const [tab, setTab] = useState<Tab>(isTab(fromUrl) ? fromUrl : "profile");
+  useEffect(() => {
+    if (isTab(fromUrl)) {
+      return;
+    }
+    try {
+      const saved = window.sessionStorage.getItem(TAB_KEY);
+      if (isTab(saved)) {
+        setTab(saved);
+      }
+    } catch {
+      // storage blocked: start on the first tab
+    }
+  }, [fromUrl]);
+  const select = useCallback((next: Tab) => {
+    setTab(next);
+    try {
+      window.sessionStorage.setItem(TAB_KEY, next);
+    } catch {
+      // storage blocked: the address still carries the tab
+    }
+    const url = new URL(window.location.href);
+    url.searchParams.set("tab", next);
+    window.history.replaceState(window.history.state, "", url);
+    window.scrollTo({ top: 0 });
+  }, []);
+  return [tab, select];
+}
+
+function initials(name: string): string {
+  const parts = name.split(/[\s@.]+/).filter(Boolean);
+  return ((parts[0]?.[0] ?? "") + (parts[1]?.[0] ?? "")).toUpperCase() || "?";
+}
+
+function UserCard({ name, email }: { name: string; email: string }) {
+  return (
+    <div className="flex min-w-0 items-center gap-3">
+      <span
+        aria-hidden="true"
+        className="grid size-11 shrink-0 place-items-center rounded-full bg-[var(--tj-brand)] text-[15px] font-semibold text-white lg:size-12"
+      >
+        {initials(name)}
+      </span>
+      <div className="min-w-0">
+        <p className="truncate text-[16px] font-semibold text-[var(--tj-ink-1)]">{name}</p>
+        {email && <p className="truncate text-[13px] text-[var(--tj-ink-3)]">{email}</p>}
+      </div>
+    </div>
+  );
+}
+
+function TabList({
+  tab,
+  onSelect,
+  attention,
+  variant,
+}: {
+  tab: Tab;
+  onSelect: (tab: Tab) => void;
+  attention: Partial<Record<Tab, boolean>>;
+  variant: "side" | "bottom";
+}) {
+  const t = useTranslations("tijorat.account");
+  function onKeyDown(event: React.KeyboardEvent) {
+    const step = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 }[event.key];
+    if (!step) {
+      return;
+    }
+    event.preventDefault();
+    const next = TABS[(TABS.indexOf(tab) + step + TABS.length) % TABS.length];
+    onSelect(next);
+    document.getElementById(`account-tab-${variant}-${next}`)?.focus();
+  }
+  return (
+    <div
+      role="tablist"
+      aria-label={t("tabs.label")}
+      aria-orientation={variant === "side" ? "vertical" : "horizontal"}
+      onKeyDown={onKeyDown}
+      className={
+        variant === "side"
+          ? "flex flex-col gap-1"
+          : "grid grid-cols-3 gap-1 px-2 pt-1.5 pb-[max(6px,env(safe-area-inset-bottom))]"
+      }
+    >
+      {TABS.map((id) => {
+        const selected = id === tab;
+        return (
+          <button
+            key={id}
+            id={`account-tab-${variant}-${id}`}
+            type="button"
+            role="tab"
+            aria-selected={selected}
+            aria-controls={`account-panel-${id}`}
+            tabIndex={selected ? 0 : -1}
+            onClick={() => onSelect(id)}
+            data-testid={`tab-${id}${variant === "bottom" ? "-mobile" : ""}`}
+            className={
+              variant === "side"
+                ? `flex h-11 items-center gap-3 rounded-xl px-3 text-left text-[14.5px] font-medium transition-colors ${
+                    selected
+                      ? "bg-[var(--tj-mist)] text-[var(--tj-brand-ink)]"
+                      : "text-[var(--tj-ink-2)] hover:bg-[var(--tj-surface)] hover:text-[var(--tj-ink-1)]"
+                  }`
+                : `relative flex min-h-[52px] flex-col items-center justify-center gap-0.5 rounded-xl text-[11.5px] font-semibold transition-colors ${
+                    selected ? "text-[var(--tj-brand-ink)]" : "text-[var(--tj-ink-3)]"
+                  }`
+            }
+          >
+            <span className="relative">
+              <TabIcon tab={id} />
+              {attention[id] && (
+                <span className="absolute -top-0.5 -right-1 size-2 rounded-full bg-[#e8a33d] ring-2 ring-[var(--tj-surface)]" />
+              )}
+            </span>
+            <span className={variant === "side" ? "flex-1" : ""}>{t(`tabs.${id}`)}</span>
+            {variant === "bottom" && selected && (
+              <span className="absolute top-0 h-[3px] w-8 rounded-full bg-[var(--tj-brand)]" aria-hidden="true" />
+            )}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+function Header() {
+  return (
+    <header className="sticky top-0 z-20 border-b border-[var(--tj-hairline)] bg-[var(--tj-surface)]/90 backdrop-blur">
+      <div className="mx-auto flex h-14 max-w-5xl items-center justify-between gap-2 px-4 sm:h-16 sm:gap-3">
+        <TijoratWordmark height={24} className="shrink-0 text-[#1d9f6e] dark:text-white" />
+        <div className="flex min-w-0 items-center gap-1.5 sm:gap-2">
           <LanguagePills />
-          <ThemeSwitch />
+          <div className="hidden sm:block">
+            <ThemeSwitch />
+          </div>
         </div>
       </div>
     </header>
   );
 }
 
-/** Tijorat+ "My account": profile, contacts, sign-in methods and devices, in the brand layout. */
+function Panel({ id, tab, children }: { id: Tab; tab: Tab; children: ReactNode }) {
+  // Every panel stays mounted, so a half-done step (a code, a QR) survives a switch of tabs.
+  return (
+    <section
+      id={`account-panel-${id}`}
+      role="tabpanel"
+      aria-labelledby={`account-tab-side-${id}`}
+      hidden={id !== tab}
+      className="flex flex-col gap-4"
+      data-testid={`panel-${id}`}
+    >
+      {children}
+    </section>
+  );
+}
+
+/** Tijorat+ "My account": profile, sign-in security and devices on tabs, in the brand layout. */
 export function AccountPage({ data }: { data: AccountData }) {
   const t = useTranslations("tijorat.account");
   const { run, dialog } = useRunner(t, data);
+  const [tab, setTab] = useTab();
   const name = data.user.displayName || `${data.user.givenName} ${data.user.familyName}`.trim() || data.user.loginName;
+  const secondFactor = data.totp || data.otpEmail || data.otpSms || data.u2f.length > 0 || data.passkeys.length > 0;
+  const attention = { profile: !data.user.emailVerified, security: !secondFactor };
 
   return (
     <RunnerContext.Provider value={run}>
-      <div className="min-h-screen bg-[var(--tj-bg)]">
-        <Header name={name} />
-        <main className="mx-auto flex max-w-3xl flex-col gap-4 px-4 py-8">
-          <div className="mb-2">
-            <h1 className="text-[26px] leading-tight font-bold text-[var(--tj-ink-1)]">{t("title")}</h1>
-            <p className="mt-1 text-[14px] text-[var(--tj-ink-3)]">{t("subtitle")}</p>
-          </div>
-          <ProfileSection data={data} />
-          <ContactSection data={data} />
-          <PasswordSection data={data} />
-          <PasskeysSection data={data} />
-          <TwoFactorSection data={data} />
-          <SessionsSection data={data} />
-        </main>
+      <div className="min-h-dvh bg-[var(--tj-bg)]">
+        <Header />
+        <div className="mx-auto flex max-w-5xl gap-8 px-4 pt-5 pb-28 sm:pt-8 lg:pb-12">
+          <aside className="hidden w-60 shrink-0 lg:block">
+            <div className="sticky top-24 flex flex-col gap-6">
+              <UserCard name={name} email={data.user.email} />
+              <TabList tab={tab} onSelect={setTab} attention={attention} variant="side" />
+            </div>
+          </aside>
+          <main className="min-w-0 flex-1 lg:max-w-2xl">
+            <div className="mb-4 flex items-center justify-between gap-3 rounded-2xl border border-[var(--tj-hairline)] bg-[var(--tj-surface)] p-4 lg:hidden">
+              <UserCard name={name} email={data.user.email} />
+              <div className="shrink-0 sm:hidden">
+                <ThemeSwitch />
+              </div>
+            </div>
+            <Panel id="profile" tab={tab}>
+              <ProfileSection data={data} />
+              <ContactSection data={data} />
+            </Panel>
+            <Panel id="security" tab={tab}>
+              <PasswordSection data={data} />
+              <PasskeysSection data={data} />
+              <TwoFactorSection data={data} />
+            </Panel>
+            <Panel id="devices" tab={tab}>
+              <SessionsSection data={data} />
+            </Panel>
+          </main>
+        </div>
+        <nav className="fixed inset-x-0 bottom-0 z-20 border-t border-[var(--tj-hairline)] bg-[var(--tj-surface)]/95 backdrop-blur lg:hidden">
+          <TabList tab={tab} onSelect={setTab} attention={attention} variant="bottom" />
+        </nav>
       </div>
       {dialog}
     </RunnerContext.Provider>
