@@ -124,7 +124,21 @@ ZITADEL core рендерит письма по своему HTML-шаблону
    Тексты лежат в `src/tijorat/email/locales/*.json`. Тексты сообщений в консоли ZITADEL при этом
    не используются.
 
-5. Письмо уходит через SMTP с настройками login (`TIJORAT_SMTP_*`).
+5. Письмо уходит одним из двух транспортов, выбор задаёт `TIJORAT_EMAIL_TRANSPORT`:
+   - **`resend`** — через HTTP API Resend по шаблону с алиасом `tj-<вид>-<язык>`, например
+     `tj-verify-email-ru`, `tj-password-reset-tg`. Всего 32 шаблона: 8 видов на 4 языка. Шаблоны
+     создаются и правятся в визуальном редакторе Resend, это и есть их источник. Login передаёт
+     только переменные:
+     - `USER_NAME`, `CODE`, `ACTION_URL`;
+     - для приглашения — `APP_NAME`;
+     - для смены логина — `CLAIMED_DOMAIN` и `NEW_USERNAME`.
+
+     Значения экранируются в login. Повтор одного уведомления не даёт второго письма: login передаёт
+     `Idempotency-Key` из тела запроса ZITADEL. Для события без шаблона Resend получает HTML форка.
+     Неопубликованный или переименованный шаблон даёт ошибку 422 и в итоге ответ 502, а ZITADEL
+     повторяет отправку.
+
+   - **`smtp`** (по умолчанию) — свой HTML через SMTP с настройками `TIJORAT_SMTP_*`.
    - Ошибка SMTP возвращает 502, и ZITADEL повторяет отправку.
    - В логи пишутся тип письма и userID, без адреса и кода.
 
@@ -178,7 +192,10 @@ Administrators. Токен передаётся только через пере
 | `TIJORAT_SMTP_HOST`, `TIJORAT_SMTP_PORT`     | запуск             | SMTP-сервер; порт по умолчанию 587 (STARTTLS) или 465                                |
 | `TIJORAT_SMTP_SECURE`                        | запуск             | `true` для TLS сразу (порт 465), иначе обязательный STARTTLS                         |
 | `TIJORAT_SMTP_USER`, `TIJORAT_SMTP_PASSWORD` | запуск             | логин и пароль SMTP                                                                  |
-| `TIJORAT_SMTP_FROM`                          | запуск             | `Tijorat+ <no-reply@tijorat.plus>`                                                   |
+| `TIJORAT_EMAIL_TRANSPORT`                    | запуск             | `resend` или `smtp` (по умолчанию)                                                   |
+| `TIJORAT_EMAIL_FROM`                         | запуск             | `Tijorat+ <no-reply@tijorat.plus>`; если не задан, берётся `TIJORAT_SMTP_FROM`       |
+| `RESEND_API_KEY`                             | запуск             | ключ API Resend с правом отправки (только для `resend`)                              |
+| `TIJORAT_SMTP_FROM`                          | запуск             | прежнее имя для `TIJORAT_EMAIL_FROM`                                                 |
 
 `NEXT_PUBLIC_*` подставляются в код при `next build`, поэтому задаются при сборке образа, а не при запуске.
 

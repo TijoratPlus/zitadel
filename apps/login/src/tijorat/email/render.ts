@@ -220,6 +220,29 @@ function text(c: Content, t: Texts): string {
   ].join("\n");
 }
 
+/**
+ * Values for the Resend template variables of `kind` (see resend.ts). Resend inserts them
+ * unescaped ({{{…}}}), so each value is HTML-escaped here once, after undoing ZITADEL's escaping.
+ * Empty values are left out, so the template's fallback applies.
+ */
+export function templateVariables(kind: EmailKind, payload: EmailPayload): Record<string, string> {
+  const { args, templateData } = payload;
+  const appName = arg(args, "applicationName");
+  const values: Record<string, string> = {
+    USER_NAME: arg(args, "firstName") || arg(args, "displayName"),
+    CODE: arg(args, "code") || arg(args, "oTP"),
+    ACTION_URL: safeUrl(templateData?.url) ?? "",
+    APP_NAME: appName && appName !== "ZITADEL" ? appName : "",
+    CLAIMED_DOMAIN: kind === "domainClaimed" ? arg(args, "domain") : "",
+    NEW_USERNAME: kind === "domainClaimed" ? arg(args, "tempUsername") : "",
+  };
+  return Object.fromEntries(
+    Object.entries(values)
+      .filter(([, value]) => value)
+      .map(([key, value]) => [key, escapeHtml(value)]),
+  );
+}
+
 /** A Tijorat+ email for `kind`, or for an unknown event, ZITADEL's own texts in the same layout. */
 export function renderEmail(kind: EmailKind | undefined, locale: string, payload: EmailPayload): RenderedEmail {
   const lang = TEXTS[locale] ? locale : DEFAULT_EMAIL_LOCALE;

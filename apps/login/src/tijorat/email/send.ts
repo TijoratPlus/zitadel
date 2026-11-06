@@ -1,7 +1,7 @@
 import nodemailer, { Transporter } from "nodemailer";
 import "server-only";
 import { LOGO_CID, LOGO_PNG_BASE64 } from "./logo";
-import { RenderedEmail } from "./render";
+import { OutgoingEmail, sendViaResend } from "./resend";
 
 let transporter: Transporter | undefined;
 
@@ -10,8 +10,8 @@ let transporter: Transporter | undefined;
 function smtp(): Transporter {
   if (!transporter) {
     const host = process.env.TIJORAT_SMTP_HOST;
-    if (!host || !process.env.TIJORAT_SMTP_FROM) {
-      throw new Error("TIJORAT_SMTP_HOST and TIJORAT_SMTP_FROM must be set to send email");
+    if (!host || !(process.env.TIJORAT_EMAIL_FROM || process.env.TIJORAT_SMTP_FROM)) {
+      throw new Error("TIJORAT_SMTP_HOST and TIJORAT_EMAIL_FROM must be set to send email");
     }
     const secure = process.env.TIJORAT_SMTP_SECURE === "true";
     const user = process.env.TIJORAT_SMTP_USER;
@@ -26,13 +26,21 @@ function smtp(): Transporter {
   return transporter;
 }
 
-export async function sendEmail(to: string, email: RenderedEmail): Promise<void> {
+async function sendViaSmtp(to: string, { rendered }: OutgoingEmail): Promise<void> {
   await smtp().sendMail({
-    from: process.env.TIJORAT_SMTP_FROM,
+    from: process.env.TIJORAT_EMAIL_FROM || process.env.TIJORAT_SMTP_FROM,
     to,
-    subject: email.subject,
-    html: email.html,
-    text: email.text,
+    subject: rendered.subject,
+    html: rendered.html,
+    text: rendered.text,
     attachments: [{ filename: "tijorat.png", content: LOGO_PNG_BASE64, encoding: "base64", cid: LOGO_CID }],
   });
+}
+
+/** TIJORAT_EMAIL_TRANSPORT=resend sends through Resend's templates; anything else uses SMTP. */
+export async function sendEmail(to: string, email: OutgoingEmail): Promise<void> {
+  if (process.env.TIJORAT_EMAIL_TRANSPORT === "resend") {
+    return sendViaResend(to, email);
+  }
+  return sendViaSmtp(to, email);
 }

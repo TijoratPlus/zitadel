@@ -65,14 +65,26 @@ describe("handleEmailWebhook", () => {
     expect(d.preferredLanguage).toHaveBeenCalledWith("42", PAYLOAD.templateData.url);
     const [to, email] = vi.mocked(d.send).mock.calls[0];
     expect(to).toBe("user@shop.tj");
-    expect(email.subject).toBe("Email-ро тасдиқ кунед — Tijorat+");
-    expect(email.html).toContain("Салом, Zarina!");
+    expect(email.rendered.subject).toBe("Email-ро тасдиқ кунед — Tijorat+");
+    expect(email.rendered.html).toContain("Салом, Zarina!");
+  });
+
+  it("hands over the kind, template variables and a key that is stable across retries", async () => {
+    const d = deps();
+    await handleEmailWebhook(signedRequest(PAYLOAD), d);
+    await handleEmailWebhook(signedRequest(PAYLOAD), d);
+    const [first, second] = vi.mocked(d.send).mock.calls.map((call) => call[1]);
+    expect(first.kind).toBe("verifyEmail");
+    expect(first.locale).toBe("tg");
+    expect(first.variables).toEqual({ USER_NAME: "Zarina", CODE: "X1", ACTION_URL: PAYLOAD.templateData.url });
+    expect(first.idempotencyKey).toMatch(/^[0-9a-f]{64}$/);
+    expect(second.idempotencyKey).toBe(first.idempotencyKey);
   });
 
   it("falls back to the default language when the lookup fails", async () => {
     const d = deps({ preferredLanguage: vi.fn().mockRejectedValue(new Error("unavailable")) });
     expect((await handleEmailWebhook(signedRequest(PAYLOAD), d)).status).toBe(200);
-    expect(vi.mocked(d.send).mock.calls[0][1].subject).toBe("Подтвердите email — Tijorat+");
+    expect(vi.mocked(d.send).mock.calls[0][1].rendered.subject).toBe("Подтвердите email — Tijorat+");
   });
 
   it("answers 502 when SMTP fails, so ZITADEL retries, and logs neither address nor code", async () => {
